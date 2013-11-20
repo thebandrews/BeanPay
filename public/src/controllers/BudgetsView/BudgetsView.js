@@ -3,7 +3,7 @@ define([
 	'backbone',
 	'jquery',
 	'BudgetCollection',
-	'text!controllers/ProductView/tmpl.html'
+	'text!controllers/BudgetsView/tmpl.html'
 ], function(_, Backbone, $, BudgetCollection, tmpl) {
 
 	return Backbone.View.extend({

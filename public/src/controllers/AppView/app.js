@@ -11,9 +11,9 @@ define([
 	'TransactionView',
 	'BudgetCollection',
 	'models/sampleBudgetCollection'
-], function(_, Backbone, $, tmpl, BudgetsView, BudgetView, CardsView, SearchView, TransactionsView, TransactionView, budgets) {
+], function(_, Backbone, $, tmpl, BudgetsView, BudgetView, CardsView, SearchView, TransactionsView, TransactionView, BudgetCollection, budgets) {
 
-	var collection = new BudgetCollection(products);
+	var collection = new BudgetCollection(budgets);
 
 	var AppView = Backbone.View.extend({
 
@@ -30,6 +30,6 @@ define([
 			this.$el.append(_.template(tmpl, {name: 'Ben'}));
 		}
 	});
-	
+
 	return new AppView({el: 'body', collection: collection});
 });
