@@ -10,11 +10,19 @@ define([
 ], function(_, Backbone, $, BudgetCollection, BudgetView, cssPie, tmpl, budgetGraphTmpl) {
 
 	return Backbone.View.extend({
-		events: {},
+		events: {
+			"click .budgetGraph": "budgetGraphClick"
+		},
 
-		initialize: function (collection) {
-			this.budgetCollection = collection;
+		initialize: function (info) {
+			this.budgetCollection = info.budgetCollection;
+			this.cardCollection = info.cardCollection;
+			this.transactionCollection = info.transactionCollection;
 			this.render();
+		},
+
+		budgetGraphClick: function (e) {
+			console.log(e);
 		},
 
 		render: function () {
@@ -23,9 +31,6 @@ define([
 			this.budgetCollection.each(_.bind(function (budget) {
 				var spentPercent = Math.random();
 				var remaining = "" + (Math.floor((1 - spentPercent) * budget.get('amount') * 100) / 100);
-				while(remaining.split(".").pop().length<2) {
-					remaining = remaining + "0";
-				}
 				spentPercent = Math.floor(spentPercent*100);  //  budget.get('amount')
 
 				var html = _.template(budgetGraphTmpl, { name: budget.get('name'), remaining: remaining });

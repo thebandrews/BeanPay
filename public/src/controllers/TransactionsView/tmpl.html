@@ -1,1 +1,10 @@
-<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+<% _.each(transactions, function(transaction) { %>
+	<div class="transaction">
+		<div class="merchant"><%= transaction.merchant %></div>
+		<div class="amount"><%= formatMoney(transaction.amount) %></div>
+		<div class="date"><%= transaction.date.format("dddd, mmmm d, h:MM TT") %></div>
+		<div class="card_number"><%= transaction.card_number %></div>
+		<div class="budget_name"><%= transaction.budget_name %></div>
+		<img class="card_image" src="images/<%= transaction.card_image %>" />
+	</div>
+<% }) %>

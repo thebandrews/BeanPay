@@ -37,6 +37,13 @@ define([
 		transactionCollection = new TransactionCollection(transactions);
 	}
 
+	window.formatMoney = function(val, decimals) {
+		if(decimals===undefined) {
+			decimals = 2;
+		}
+		return '$' + parseFloat(val, 10).toFixed(decimals);
+	};
+
 	window.touchStart = function(e) {
 		$body.addClass('touching');
 		$body.find(".touch_view").css(
@@ -46,18 +53,25 @@ define([
 			}
 		);
 	};
-
 	window.touchMove = function(e) {
-		$body.find(".touch_view").css(
-			{
+		if($body.hasClass('touching')) {
+			var $tv = $body.find(".touch_view");
+			var $ot = $('<div class="old_touch"></div>').css({
+				top: $tv.css('top'),
+				left: $tv.css('left'),
+			});
+			$tv.css({
 				top: e.clientY + "px",
 				left: e.clientX + "px"
-			}
-		);
+			});
+			$body.append($ot);
+			$ot.addClass('hot').css('opacity');
+			$ot.removeClass('hot').css('-webkit-transition');
+		}
 	};
-
 	window.touchEnd = function(e) {
 		$body.removeClass('touching');
+		$body.find(".old_touch").remove();
 	};
 
 	var AppView = Backbone.View.extend({

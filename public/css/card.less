@@ -12,7 +12,7 @@
 		margin-bottom: 98px;
 
 		.card_content {
-			background: #777;
+			background: #444;
 			color: #000;
 
 /*			position: absolute;
@@ -24,7 +24,8 @@
 
 			position: absolute;
 			top: 50%;
-			left: 50%;		
+			left: 50%;
+			z-index: 10001;
 			height: 281px;
 			width: 460px;
 
@@ -35,6 +36,7 @@
 			img {
 				height: 100%;
 				width: 100%;
+				opacity: 0.7;
 			}
 
 			.locked {
@@ -53,6 +55,18 @@
 					height: 29px;
 					width: 28px;
 				}
+			}
+
+			&:before {
+				content: "";
+				pointer-events: none;
+				position: absolute;
+				top: 0;
+				right: 0;
+				left: 0;
+				bottom: 0;
+				display: block;
+				background-image:	-webkit-linear-gradient(200deg, rgba(255, 255, 255, 0.27) 0%, rgba(255, 255, 255, 0.27) 74%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0) 100%);
 			}
 		}
 	}
@@ -320,7 +334,7 @@
 	}
 
 	&[data-char="7"] {
-		.left, .bottom, .middle {
+		.lower.left, .bottom, .middle {
 			opacity: 0;
 		}
 	}

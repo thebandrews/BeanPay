@@ -23,8 +23,8 @@ define([
 
 			this.render();
 
-			this.budgetsView = new BudgetsView(info.budgetCollection);
-			this.cardsView = new CardsView(info.cardCollection);
+			this.budgetsView = new BudgetsView(info);
+			this.cardsView = new CardsView(info);
 		},
 
 		render: function() {

@@ -3,39 +3,48 @@ define([
 	'backbone',
 	'jquery',
 	'text!controllers/PhoneView/tmpl.html',
+	'text!controllers/PhoneView/menu.html',
 	'BudgetsView',
 	'BudgetView',
 	'CardsView',
 	'SearchView',
 	'TransactionsView',
-	'TransactionView',
-	'BudgetCollection',
-	'models/sampleBudgetCollection'
-], function(_, Backbone, $, tmpl, BudgetsView, BudgetView, CardsView, SearchView, TransactionsView, TransactionView, BudgetCollection, budgets) {
+	'TransactionView'
+], function(_, Backbone, $, tmpl, menuTmpl, BudgetsView, BudgetView, CardsView, SearchView, TransactionsView, TransactionView) {
 
 	return Backbone.View.extend({
 
 		el: '#phone',
 
 		events: {
+			"click #menu li": "menuSelect"
 		},
 
 		initialize: function(info) {
 			this.render();
 
-			this.$content = this.$el.find(".content");
-
 			this.budgetCollection = info.budgetCollection;
 			this.cardCollection = info.cardCollection;
+			this.transactionCollection = info.transactionCollection;
 
-			this.budgetsView = new BudgetsView(info.budgetCollection);
-			this.cardsView = new CardsView(info.cardCollection);
+			this.budgetsView = new BudgetsView(info);
+			this.cardsView = new CardsView(info);
+			this.transactionsView = new TransactionsView(info);
 
 			this.$content.append(this.budgetsView.$el);
+			this.$content.append(this.transactionsView.$el);
+		},
+
+		menuSelect: function (e) {
+			console.log(e);
 		},
 
 		render: function() {
 			this.$el.append(_.template(tmpl, {name: 'Ben'}));
+
+			this.$content = this.$el.find(".content");
+
+			this.$content.append(_.template(menuTmpl, {}));
 		},
 
 		setCard: function(card) {

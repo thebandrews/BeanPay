@@ -9,7 +9,8 @@ body {
   min-width: 100%;
   background-color: #f3f3f3;
 }
-.touch_view {
+.touch_view,
+.old_touch {
   display: none;
   position: absolute;
   z-index: 100000;
@@ -17,6 +18,7 @@ body {
 
   /*background-image: url(../images/fingerprint.png);*/
 
+  -webkit-mask-repeat: no-repeat;
   -webkit-mask-image: url(../images/fingerprint.png);
   -webkit-mask-position: 48% 56%;
   -webkit-mask-size: 130px;
@@ -27,8 +29,16 @@ body {
   border-radius: 100%;
   pointer-events: none;
 }
-.touching .touch_view {
+.touching .touch_view,
+.touching .old_touch {
   display: block;
+}
+.old_touch {
+  opacity: 0;
+  -webkit-transition: opacity .3s;
+}
+.old_touch.hot {
+  opacity: 0.3;
 }
 .touchable {
   cursor: pointer;
@@ -69,7 +79,7 @@ body {
   position: absolute;
   top: 45%;
   margin: 0 auto;
-  left: 23%;
+  right: 39%;
   font-size: 16px;
   color: #fff;
   /*	-webkit-text-fill-color: white;  Will override color (regardless of order) 
@@ -91,7 +101,7 @@ body {
   margin-bottom: 98px;
 }
 #card .card_front .card_content {
-  background: #777;
+  background: #444;
   color: #000;
   /*			position: absolute;
 			top: 15px;
@@ -103,6 +113,7 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
+  z-index: 10001;
   height: 281px;
   width: 460px;
   text-align: center;
@@ -111,6 +122,7 @@ body {
 #card .card_front .card_content img {
   height: 100%;
   width: 100%;
+  opacity: 0.7;
 }
 #card .card_front .card_content .locked {
   position: absolute;
@@ -127,6 +139,17 @@ body {
 #card .card_front .card_content .locked img {
   height: 29px;
   width: 28px;
+}
+#card .card_front .card_content:before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: block;
+  background-image: -webkit-linear-gradient(200deg, rgba(255, 255, 255, 0.27) 0%, rgba(255, 255, 255, 0.27) 74%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0) 100%);
 }
 #card .card_front,
 #card .card_back {
@@ -335,7 +358,7 @@ body {
 .lcd_char[data-char="6"] .upper.right {
   opacity: 0;
 }
-.lcd_char[data-char="7"] .left,
+.lcd_char[data-char="7"] .lower.left,
 .lcd_char[data-char="7"] .bottom,
 .lcd_char[data-char="7"] .middle {
   opacity: 0;
@@ -417,6 +440,90 @@ body {
   background-size: 100%;
   overflow: hidden;
 }
+#phone .content #menu {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #000;
+  color: #aaa;
+  height: 50px;
+  z-index: 1;
+  display: table;
+  width: 100%;
+  border-spacing: 0px;
+  table-layout: fixed;
+  border-top: 1px solid #aaa;
+  font-size: 11px;
+}
+#phone .content #menu li {
+  background-color: #000;
+  border-left: 1px solid #aaa;
+  display: table-cell;
+  vertical-align: middle;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+#phone .content #menu li:before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 30px;
+  position: absolute;
+  bottom: 16px;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: 50% 50%;
+  -webkit-mask-size: 26px;
+  background-color: #aaa;
+}
+#phone .content #menu li:after {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+#phone .content #menu li:first-child {
+  border: 0 none;
+}
+#phone .content #menu li.home:before {
+  -webkit-mask-image: url(../images/icons/home.png);
+  -webkit-mask-size: 31px;
+}
+#phone .content #menu li.home:after {
+  content: "Home";
+}
+#phone .content #menu li.wallet:before {
+  -webkit-mask-image: url(../images/icons/wallet.png);
+}
+#phone .content #menu li.wallet:after {
+  content: "Wallet";
+}
+#phone .content #menu li.budgets:before {
+  -webkit-mask-image: url(../images/icons/budget5.png);
+}
+#phone .content #menu li.budgets:after {
+  content: "Budgets";
+}
+#phone .content #menu li.cards:before {
+  -webkit-mask-image: url(../images/icons/cards.png);
+}
+#phone .content #menu li.cards:after {
+  content: "Cards";
+}
+#phone .content #menu li.back:before {
+  -webkit-mask-image: url(../images/icons/back.png);
+}
+#phone .content #menu li.back:after {
+  content: "Back";
+}
+#phone .content #menu li.search:before {
+  -webkit-mask-image: url(../images/icons/search.png);
+  -webkit-mask-size: 24px;
+}
+#phone .content #menu li.search:after {
+  content: "Search";
+}
 #phone .overlay {
   display: none;
   pointer-events: none;
@@ -427,4 +534,15 @@ body {
   bottom: 0;
   z-index: 10000;
   background-image: -webkit-linear-gradient(200deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.2) 33%, rgba(0, 0, 0, 0) 33.6%, rgba(0, 0, 0, 0) 100%);
+}
+.transaction {
+  background-color: #151;
+  height: 90px;
+  border-bottom: 1px solid #000;
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+}
+.transaction img {
+  width: 60px;
 }
