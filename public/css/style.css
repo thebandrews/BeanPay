@@ -7,7 +7,424 @@ body {
   -webkit-transform: translate3d(0, 0, 0);
   height: 100%;
   min-width: 100%;
+  background-color: #f3f3f3;
 }
-test {
+.touch_view {
   display: none;
+  position: absolute;
+  z-index: 100000;
+  /*-webkit-mask-image: url('mask.png') no-repeat fixed center center padding padding;*/
+
+  /*background-image: url(../images/fingerprint.png);*/
+
+  -webkit-mask-image: url(../images/fingerprint.png);
+  -webkit-mask-position: 48% 56%;
+  -webkit-mask-size: 130px;
+  background-color: rgba(0, 255, 255, 0.75);
+  height: 40px;
+  width: 30px;
+  margin: -20px 0 0 -15px;
+  border-radius: 100%;
+  pointer-events: none;
+}
+.touching .touch_view {
+  display: block;
+}
+.touchable {
+  cursor: pointer;
+}
+.touching .touchable {
+  cursor: none;
+}
+.pie {
+  position: relative;
+}
+.pie:before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 100%;
+  border: 2px solid #333;
+  box-shadow: #474 2px 2px 2px;
+}
+.budgets {
+  height: 130px;
+  background-color: #96C56F;
+}
+.budgetGraph {
+  float: left;
+  text-align: center;
+  width: 106px;
+  margin-top: 10px;
+  position: relative;
+}
+.budgetTitle {
+  margin-top: 3px;
+}
+.budgetRemaining {
+  position: absolute;
+  top: 45%;
+  margin: 0 auto;
+  left: 23%;
+  font-size: 16px;
+  color: #fff;
+  /*	-webkit-text-fill-color: white;  Will override color (regardless of order) 
+	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: black;
+*/
+}
+#card {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  position: absolute;
+  top: 50%;
+  right: 30%;
+  margin: -360px -245px 0px 0px;
+  height: 720px;
+  width: 490px;
+}
+#card .card_front {
+  margin-bottom: 98px;
+}
+#card .card_front .card_content {
+  background: #777;
+  color: #000;
+  /*			position: absolute;
+			top: 15px;
+			right: 15px;
+			bottom: 15px;
+			left: 15px;
+*/
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 281px;
+  width: 460px;
+  text-align: center;
+  margin: -140px 0 0 -230px;
+}
+#card .card_front .card_content img {
+  height: 100%;
+  width: 100%;
+}
+#card .card_front .card_content .locked {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  height: 40px;
+  width: 40px;
+  box-sizing: border-box;
+  display: block;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 4px solid #000;
+  padding-top: 1px;
+}
+#card .card_front .card_content .locked img {
+  height: 29px;
+  width: 28px;
+}
+#card .card_front,
+#card .card_back {
+  border-radius: 15px;
+  border: solid 2px #000;
+  height: 311px;
+  width: 490px;
+  position: relative;
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%), -webkit-repeating-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 0.7%, #000000 1.4%), -webkit-repeating-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 4%, rgba(255, 255, 255, 0.17) 5.8%), -webkit-repeating-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 1.1%, rgba(0, 0, 0, 0.35) 6.2%), -webkit-repeating-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) -16.9%, rgba(255, 255, 255, 0.06) 18.7%), -webkit-repeating-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 0.3%, rgba(0, 0, 0, 0.45) 14.7%);
+  /*		background-image: 	-webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8) 100%),
+						-webkit-linear-gradient(200deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.4) 35%, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0) 100%),
+						-webkit-linear-gradient(left, black 5%, rgba(0, 0, 0, 0) 5%, rgba(0, 0, 0, 0) 95%, black 95%);
+*/
+
+  background-color: #444;
+  color: #ccc;
+  box-shadow: #aaa 3px 6px 5px;
+}
+#card .card_front:before,
+#card .card_back:before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: block;
+  z-index: 10000;
+  background-image: -webkit-linear-gradient(200deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.25) 70.5%, rgba(0, 0, 0, 0) 97.5%, rgba(0, 0, 0, 0) 100%);
+}
+#card .card_back .above_stripe {
+  width: 100%;
+  height: 26px;
+  font-size: 12px;
+  box-sizing: border-box;
+  padding: 6px 0 0 16px;
+}
+#card .card_back .mag_stripe {
+  position: absolute;
+  z-index: 10001;
+  background-color: #3a2020;
+  height: 49px;
+  width: 100%;
+}
+#card .card_back .mag_stripe:before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: block;
+  background-image: -webkit-linear-gradient(200deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.08) 54%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0) 100%);
+}
+#card .card_back .above_signature_zone {
+  width: 100%;
+  margin-top: 49px;
+  height: 37px;
+}
+#card .card_back .signature_zone,
+#card .card_back .cvv_zone {
+  float: left;
+  height: 50px;
+}
+#card .card_back .signature_zone {
+  background-color: #d3d3d3;
+  width: 75%;
+  margin-left: 16px;
+}
+#card .card_back .cvv_zone {
+  box-sizing: border-box;
+  width: 104px;
+  padding: 0 18px;
+}
+#card .card_back .cvv_zone .cvv_title {
+  text-transform: uppercase;
+  font-size: 12px;
+  height: 17px;
+  margin-top: -1px;
+}
+#card .card_back .cvv_zone .cvv_display {
+  width: 69px;
+  background: #a5a5a5;
+  height: 36px;
+  margin: -2px 0 0;
+}
+#card .card_back .card_bottom {
+  position: absolute;
+  bottom: 44px;
+  box-sizing: border-box;
+  padding: 16px;
+  font-size: 36px;
+  font-family: "Gill Sans", "Verdana", "Arial", sans-serif;
+  width: 100%;
+  vertical-align: bottom;
+}
+#card .card_back .card_bottom span.website {
+  font-size: 20px;
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+}
+#card .card_back .card_buttons {
+  position: absolute;
+  bottom: 0;
+  left: 18px;
+  right: 18px;
+  height: 54px;
+}
+#card .card_back .card_buttons .button {
+  float: left;
+  height: 30px;
+  width: 30px;
+  padding: 6px;
+  font-size: 16px;
+  background-color: #000;
+  border: 1px solid #444;
+  border-radius: 100%;
+  color: #eee;
+  background-image: -webkit-linear-gradient(200deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 34%, rgba(255, 255, 255, 0.04) 48%, rgba(255, 255, 255, 0.2) 100%), -webkit-linear-gradient(270deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 34%, rgba(255, 255, 255, 0.04) 48%, rgba(255, 255, 255, 0.2) 100%);
+}
+#card .card_back .card_buttons .button:before {
+  content: "";
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  background-color: #2a2a2a;
+  display: block;
+  box-sizing: border-box;
+  background-image: -webkit-linear-gradient(20deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 37%, rgba(255, 255, 255, 0.14) 58%, rgba(255, 255, 255, 0.3) 100%), -webkit-linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 37%, rgba(255, 255, 255, 0.04) 58%, rgba(255, 255, 255, 0.2) 100%);
+}
+#card .card_back .card_buttons .button.left:after,
+#card .card_back .card_buttons .button.right:after {
+  content: "";
+  height: 115%;
+  width: 115%;
+}
+#card .card_back .card_buttons .button.left:before {
+  content: "\25C0";
+  padding: 4px 0 0 5px;
+}
+#card .card_back .card_buttons .button.right {
+  float: right;
+}
+#card .card_back .card_buttons .button.right:before {
+  content: "\25B6";
+  padding: 6px 0 0 9px;
+}
+#card .card_back:before {
+  background-image: -webkit-linear-gradient(200deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.25) 46.5%, rgba(0, 0, 0, 0) 73.5%, rgba(0, 0, 0, 0) 100%);
+}
+.lcd_char {
+  height: 28px;
+  width: 17px;
+  margin: 3px;
+  float: left;
+}
+.lcd_char .bar {
+  opacity: 1;
+  background: #333;
+  float: left;
+}
+.lcd_char .right {
+  float: right;
+}
+.lcd_char .horizontal {
+  height: 3px;
+  width: 13px;
+  margin: 0 2px;
+}
+.lcd_char .vertical {
+  width: 3px;
+  height: 9px;
+  margin: 1px 0;
+}
+.lcd_char[data-char=""] .bar {
+  opacity: 0;
+}
+.lcd_char[data-char="0"] .middle {
+  opacity: 0;
+}
+.lcd_char[data-char="1"] .bar {
+  opacity: 0;
+}
+.lcd_char[data-char="1"] .right {
+  opacity: 1;
+}
+.lcd_char[data-char="2"] .upper.left,
+.lcd_char[data-char="2"] .lower.right {
+  opacity: 0;
+}
+.lcd_char[data-char="3"] .left {
+  opacity: 0;
+}
+.lcd_char[data-char="4"] .top,
+.lcd_char[data-char="4"] .bottom,
+.lcd_char[data-char="4"] .lower.left {
+  opacity: 0;
+}
+.lcd_char[data-char="5"] .upper.right,
+.lcd_char[data-char="5"] .lower.left {
+  opacity: 0;
+}
+.lcd_char[data-char="6"] .upper.right {
+  opacity: 0;
+}
+.lcd_char[data-char="7"] .left,
+.lcd_char[data-char="7"] .bottom,
+.lcd_char[data-char="7"] .middle {
+  opacity: 0;
+}
+.lcd_char[data-char="9"] .lower.left {
+  opacity: 0;
+}
+/* Based off of iPhone 5 in CSS via http://www.mattboldt.com/css3-iphone5/ */
+#phone {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  display: block;
+  -webkit-transform: scale(0.95, 0.93);
+  position: absolute;
+  top: 50%;
+  left: 27%;
+  margin: -382px 0 0 -174.5px;
+  padding: 0;
+  width: 349px;
+  height: 764px;
+  border-radius: 53px;
+  border-top: #333 5px solid;
+  border-right: #474747 5px solid;
+  border-left: #333 5px solid;
+  border-bottom: #333 5px solid;
+  background-color: #000;
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8) 100%), -webkit-linear-gradient(left, #000000 5%, rgba(0, 0, 0, 0) 5%, rgba(0, 0, 0, 0) 95%, #000000 95%), -webkit-linear-gradient(top, #000000 13%, #264863 5%, #6b8ba7 50%, #082a43 85%, #000000 85%);
+  background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8) 100%), -moz-linear-gradient(200deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.4) 35%, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0) 100%), -moz-linear-gradient(left, #000000 5%, rgba(0, 0, 0, 0) 5%, rgba(0, 0, 0, 0) 95%, #000000 95%), -moz-linear-gradient(top, #000000 13%, #264863 5%, #6b8ba7 50%, #082a43 85%, #000000 85%);
+  background-image: linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8) 100%), linear-gradient(200deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.4) 35%, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0) 100%), linear-gradient(left, #000000 5%, rgba(0, 0, 0, 0) 5%, rgba(0, 0, 0, 0) 95%, #000000 95%), linear-gradient(top, #000000 13%, #264863 5%, #6b8ba7 50%, #082a43 85%, #000000 85%);
+  box-shadow: #888 9px 16px 28px;
+}
+#phone:before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 10001;
+  top: 50px;
+  left: 50%;
+  margin-left: -32.5px;
+  width: 65px;
+  height: 8px;
+  background: #333;
+  border-radius: 10px;
+  border-top: #000 4px solid;
+  border-bottom: #212121 4px solid;
+  border-left: #000 4px solid;
+  border-right: #333 4px solid;
+  box-shadow: inset #000 0px 0px 7px;
+}
+#phone:after {
+  content: "";
+  color: red;
+  font-size: 80px;
+  text-align: center;
+  display: block;
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  margin-left: -37px;
+  width: 66px;
+  height: 66px;
+  border: #222 4px solid;
+  border-radius: 100%;
+  background-color: #000;
+  background-image: -webkit-linear-gradient(200deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 34%, rgba(255, 255, 255, 0.04) 48%, rgba(255, 255, 255, 0.2) 100%), -webkit-linear-gradient(270deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 34%, rgba(255, 255, 255, 0.04) 48%, rgba(255, 255, 255, 0.2) 100%);
+  background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 52%, rgba(255, 255, 255, 0.12) 52%, rgba(255, 255, 255, 0.3) 100%), -moz-radial-gradient(26px 27px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(27px 26px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(28px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(29px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(30px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(31px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(32px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(33px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(34px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(35px 25px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(36px 25px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(37px 25px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(38px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(39px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(40px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(41px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(42px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(43px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(44px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(45px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(46px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(47px 26px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(48px 27px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(48px 28px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(48px 29px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(48px 30px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(48px 31px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(48px 32px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(48px 33px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(48px 34px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(48px 35px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(48px 36px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(48px 37px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(48px 38px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(48px 39px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(48px 40px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(48px 41px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(48px 42px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(48px 43px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 1px), -moz-radial-gradient(48px 44px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 1px), -moz-radial-gradient(48px 45px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(48px 46px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(47px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(46px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(45px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(44px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(43px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(42px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(41px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(40px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(39px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(38px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(37px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(36px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(35px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(34px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(33px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(32px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(31px 47px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(30px 47px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(29px 47px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(28px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(27px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(26px 46px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(26px 45px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(26px 44px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(26px 43px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(26px 42px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(26px 41px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), -moz-radial-gradient(26px 40px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(26px 39px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(26px 38px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(26px 37px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(26px 36px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(26px 35px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(26px 34px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(26px 33px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(26px 32px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(26px 31px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(26px 30px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(26px 29px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), -moz-radial-gradient(26px 28px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%);
+  background-image: linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 52%, rgba(255, 255, 255, 0.12) 52%, rgba(255, 255, 255, 0.3) 100%), radial-gradient(26px 27px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(27px 26px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(28px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(29px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(30px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(31px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(32px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(33px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(34px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(35px 25px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(36px 25px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(37px 25px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(38px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(39px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(40px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(41px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(42px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(43px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(44px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(45px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(46px 25px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(47px 26px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(48px 27px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(48px 28px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(48px 29px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(48px 30px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(48px 31px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(48px 32px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(48px 33px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(48px 34px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(48px 35px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(48px 36px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(48px 37px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(48px 38px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(48px 39px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(48px 40px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(48px 41px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(48px 42px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(48px 43px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 1px), radial-gradient(48px 44px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 1px), radial-gradient(48px 45px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(48px 46px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(47px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(46px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(45px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(44px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(43px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(42px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(41px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(40px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(39px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(38px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(37px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(36px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(35px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(34px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(33px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(32px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(31px 47px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(30px 47px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(29px 47px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(28px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(27px 47px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(26px 46px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(26px 45px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(26px 44px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(26px 43px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(26px 42px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(26px 41px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2%), radial-gradient(26px 40px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(26px 39px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(26px 38px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(26px 37px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(26px 36px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(26px 35px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(26px 34px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(26px 33px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(26px 32px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(26px 31px, circle, #5b6064 0%, #5b6064 2.5%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(26px 30px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(26px 29px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%), radial-gradient(26px 28px, circle, #5b6064 0%, #5b6064 2%, rgba(0, 0, 0, 0) 2.5%);
+  box-shadow: #333333 0px -684px 0px -34px, #000000 0px -684px 0px -31px, #000000 55px -716px 0px -34px, #000000 57px -716px 0px -34px, #000000 59px -716px 0px -34px, #000000 61px -716px 0px -34px, #000000 63px -716px 0px -34px, #000000 65px -716px 0px -34px, #000000 67px -716px 0px -34px, #000000 69px -716px 0px -34px, #000000 71px -716px 0px -34px, #000000 73px -716px 0px -34px, #000000 75px -716px 0px -34px, #000000 77px -716px 0px -34px, #000000 79px -716px 0px -34px, #000000 81px -716px 0px -34px, #000000 83px -716px 0px -34px, #000000 85px -716px 0px -34px, #000000 87px -716px 0px -34px, #000000 89px -716px 0px -34px, #000000 91px -716px 0px -34px, #000000 93px -716px 0px -34px, #000000 95px -716px 0px -34px, #000000 97px -716px 0px -34px, #000000 99px -716px 0px -34px, #000000 101px -716px 0px -34px, #000000 103px -716px 0px -34px, #000000 105px -716px 0px -34px, #000000 107px -716px 0px -34px, #000000 -177px -651px 0px -34px, #000000 -177px -16px 0px -34px, #333333 176px -651px 0px -34px, #333333 176px -16px 0px -34px, #333333 -180px -606px 0px -34px, #333333 -180px -604px 0px -34px, #333333 -180px -602px 0px -34px, #333333 -180px -600px 0px -34px, #333333 -180px -598px 0px -34px, #333333 -180px -596px 0px -34px, #333333 -180px -594px 0px -34px, #333333 -180px -592px 0px -34px, #333333 -180px -590px 0px -34px, #333333 -180px -588px 0px -34px, #333333 -180px -586px 0px -34px, #333333 -180px -584px 0px -34px, #333333 -180px -582px 0px -34px, #333333 -180px -580px 0px -34px, #333333 -180px -578px 0px -34px, #333333 -180px -576px 0px -34px, #333333 -180px -533px 0px -34px, #333333 -180px -531px 0px -34px, #333333 -180px -529px 0px -34px, #333333 -180px -527px 0px -34px, #333333 -180px -525px 0px -34px, #333333 -180px -523px 0px -34px, #333333 -180px -521px 0px -34px, #333333 -180px -519px 0px -34px, #333333 -180px -517px 0px -34px, #333333 -180px -515px 0px -34px, #333333 -180px -513px 0px -34px, #333333 -180px -511px 0px -34px, #333333 -180px -468px 0px -34px, #333333 -180px -466px 0px -34px, #333333 -180px -464px 0px -34px, #333333 -180px -462px 0px -34px, #333333 -180px -460px 0px -34px, #333333 -180px -458px 0px -34px, #333333 -180px -456px 0px -34px, #333333 -180px -454px 0px -34px, #333333 -180px -452px 0px -34px, #333333 -180px -450px 0px -34px, #333333 -180px -448px 0px -34px;
+}
+#phone .content {
+  position: absolute;
+  top: 88px;
+  left: 15px;
+  bottom: 108px;
+  right: 14px;
+  background: #222;
+  /*background-image: url(../images/phone.png);*/
+
+  background-size: 100%;
+  overflow: hidden;
+}
+#phone .overlay {
+  display: none;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 10000;
+  background-image: -webkit-linear-gradient(200deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.2) 33%, rgba(0, 0, 0, 0) 33.6%, rgba(0, 0, 0, 0) 100%);
 }

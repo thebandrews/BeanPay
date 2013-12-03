@@ -3,15 +3,37 @@ define([
 	'backbone',
 	'jquery',
 	'BudgetCollection',
-	'text!controllers/BudgetsView/tmpl.html'
-], function(_, Backbone, $, BudgetCollection, tmpl) {
+	'BudgetView',
+	'CSSpie',
+	'text!controllers/BudgetsView/tmpl.html',
+	'text!controllers/BudgetsView/budgetGraphTmpl.html'
+], function(_, Backbone, $, BudgetCollection, BudgetView, cssPie, tmpl, budgetGraphTmpl) {
 
 	return Backbone.View.extend({
 		events: {},
 
+		initialize: function (collection) {
+			this.budgetCollection = collection;
+			this.render();
+		},
+
 		render: function () {
-			this.$el.append(_.template(tmpl, {budgets: "temp"}));
+			this.$el.addClass("budgets");
+			// this.$el.append(_.template(tmpl, {}));
+			this.budgetCollection.each(_.bind(function (budget) {
+				var spentPercent = Math.random();
+				var remaining = "" + (Math.floor((1 - spentPercent) * budget.get('amount') * 100) / 100);
+				while(remaining.split(".").pop().length<2) {
+					remaining = remaining + "0";
+				}
+				spentPercent = Math.floor(spentPercent*100);  //  budget.get('amount')
+
+				var html = _.template(budgetGraphTmpl, { name: budget.get('name'), remaining: remaining });
+				var $html = $(html);
+
+				$html.find(".budgetPie").append(createPie("pie","90px","white",[spentPercent,100-spentPercent],["#55aa55","#222222"]));
+				this.$el.append($html);
+			}, this));
 		}
 	});
 });
-
