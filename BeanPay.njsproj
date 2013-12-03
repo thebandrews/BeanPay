@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <SchemaVersion>2.0</SchemaVersion>
+        <ProjectGuid>{5c9bbb2a-f7d7-4a97-b190-338fea5cd21b}</ProjectGuid>
+        <ProjectHome />
+        <ProjectView>ShowAllFiles</ProjectView>
+        <StartupFile>server.js</StartupFile>
+        <WorkingDirectory>.</WorkingDirectory>
+        <OutputPath>.</OutputPath>
+        <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+        <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+        <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+    <ItemGroup>
+        <Content Include="README.txt" />
+        <Content Include="index.html" />
+        <Content Include="package.json" />
+        <Compile Include="server.js" />
+        <Content Include="public\index.html" />
+        <Content Include="public\bower.json" />
+        <Content Include="public\css\normalize.css" />
+        <Content Include="public\css\style.css" />
+        <Compile Include="public\src\bootstrap.js" />
+        <Compile Include="public\src\models\sampleBudgetCollection.js" />
+        <Compile Include="public\src\components\cachedAjax\cachedAjax.js" />
+        <Content Include="public\src\controllers\AppView\app.html" />
+        <Compile Include="public\src\controllers\AppView\app.js" />
+        <Content Include="public\src\controllers\BudgetsView\tmpl.html" />
+        <Compile Include="public\src\controllers\BudgetsView\BudgetsView.js" />
+        <Content Include="public\src\controllers\BudgetView\tmpl.html" />
+        <Compile Include="public\src\controllers\BudgetView\BudgetView.js" />
+        <Content Include="public\src\controllers\CardsView\tmpl.html" />
+        <Compile Include="public\src\controllers\CardsView\CardsView.js" />
+        <Content Include="public\src\controllers\SearchView\tmpl.html" />
+        <Compile Include="public\src\controllers\SearchView\SearchView.js" />
+        <Content Include="public\src\controllers\TransactionsView\tmpl.html" />
+        <Compile Include="public\src\controllers\TransactionsView\TransactionsView.js" />
+        <Content Include="public\src\controllers\TransactionView\tmpl.html" />
+        <Compile Include="public\src\controllers\TransactionView\TransactionView.js" />
+        <Compile Include="public\src\models\Budget\BudgetCollection.js" />
+        <Compile Include="public\src\models\Budget\BudgetModel.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="public" />
+        <Folder Include="public\css" />
+        <Folder Include="public\src" />
+        <Folder Include="public\src\components\cachedAjax" />
+        <Folder Include="public\src\controllers\AppView" />
+        <Folder Include="public\src\controllers\BudgetsView" />
+        <Folder Include="public\src\controllers\BudgetView" />
+        <Folder Include="public\src\controllers\CardsView" />
+        <Folder Include="public\src\controllers\SearchView" />
+        <Folder Include="public\src\controllers\TransactionsView" />
+        <Folder Include="public\src\controllers\TransactionView" />
+        <Folder Include="public\src\models" />
+        <Folder Include="public\src\models\Budget" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+    <ProjectExtensions>
+        <VisualStudio>
+          <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+            <WebProjectProperties>
+              <UseIIS>False</UseIIS>
+              <AutoAssignPort>True</AutoAssignPort>
+              <DevelopmentServerPort>0</DevelopmentServerPort>
+              <DevelopmentServerVPath>/</DevelopmentServerVPath>
+              <IISUrl>http://localhost:48022/</IISUrl>
+              <NTLMAuthentication>False</NTLMAuthentication>
+              <UseCustomServer>True</UseCustomServer>
+              <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+              <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+            </WebProjectProperties>
+          </FlavorProperties>
+          <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+            <WebProjectProperties>
+              <StartPageUrl>
+              </StartPageUrl>
+              <StartAction>CurrentPage</StartAction>
+              <AspNetDebugging>True</AspNetDebugging>
+              <SilverlightDebugging>False</SilverlightDebugging>
+              <NativeDebugging>False</NativeDebugging>
+              <SQLDebugging>False</SQLDebugging>
+              <ExternalProgram>
+              </ExternalProgram>
+              <StartExternalURL>
+              </StartExternalURL>
+              <StartCmdLineArguments>
+              </StartCmdLineArguments>
+              <StartWorkingDirectory>
+              </StartWorkingDirectory>
+              <EnableENC>False</EnableENC>
+              <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+            </WebProjectProperties>
+          </FlavorProperties>
+        </VisualStudio>
+    </ProjectExtensions>
+</Project>
