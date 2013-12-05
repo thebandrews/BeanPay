@@ -1,0 +1,8 @@
+<% _.each(cards, function(card) { %>
+	<div class="card<%= card.isCurrent ? " current" : "" %>" id="<%= card.id %>">
+		<div class=""><%= card.name + " " + card.type %></div>
+        <div class="number"><%= card.number %></div>
+        <img class="image" src="images/<%= card.image %>" />
+        <img class="processor_image" src="images/icons/<%= card.type.toLowerCase() %>.png" />
+	</div>
+<% }) %>

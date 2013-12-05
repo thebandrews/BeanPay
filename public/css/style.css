@@ -87,6 +87,19 @@ body {
 	-webkit-text-stroke-color: black;
 */
 }
+.cards {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  background-color: #486;
+}
+.cards .card {
+  height: 100px;
+  overflow: hidden;
+  border-bottom: 1px solid #000;
+}
+.cards .card img {
+  width: 60px;
+}
 #card {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -438,91 +451,8 @@ body {
   /*background-image: url(../images/phone.png);*/
 
   background-size: 100%;
-  overflow: hidden;
-}
-#phone .content #menu {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #000;
-  color: #aaa;
-  height: 50px;
-  z-index: 1;
-  display: table;
-  width: 100%;
-  border-spacing: 0px;
-  table-layout: fixed;
-  border-top: 1px solid #aaa;
-  font-size: 11px;
-}
-#phone .content #menu li {
-  background-color: #000;
-  border-left: 1px solid #aaa;
-  display: table-cell;
-  vertical-align: middle;
-  height: 100%;
-  width: 100%;
-  position: relative;
-}
-#phone .content #menu li:before {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 30px;
-  position: absolute;
-  bottom: 16px;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: 50% 50%;
-  -webkit-mask-size: 26px;
-  background-color: #aaa;
-}
-#phone .content #menu li:after {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-}
-#phone .content #menu li:first-child {
-  border: 0 none;
-}
-#phone .content #menu li.home:before {
-  -webkit-mask-image: url(../images/icons/home.png);
-  -webkit-mask-size: 31px;
-}
-#phone .content #menu li.home:after {
-  content: "Home";
-}
-#phone .content #menu li.wallet:before {
-  -webkit-mask-image: url(../images/icons/wallet.png);
-}
-#phone .content #menu li.wallet:after {
-  content: "Wallet";
-}
-#phone .content #menu li.budgets:before {
-  -webkit-mask-image: url(../images/icons/budget5.png);
-}
-#phone .content #menu li.budgets:after {
-  content: "Budgets";
-}
-#phone .content #menu li.cards:before {
-  -webkit-mask-image: url(../images/icons/cards.png);
-}
-#phone .content #menu li.cards:after {
-  content: "Cards";
-}
-#phone .content #menu li.back:before {
-  -webkit-mask-image: url(../images/icons/back.png);
-}
-#phone .content #menu li.back:after {
-  content: "Back";
-}
-#phone .content #menu li.search:before {
-  -webkit-mask-image: url(../images/icons/search.png);
-  -webkit-mask-size: 24px;
-}
-#phone .content #menu li.search:after {
-  content: "Search";
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 #phone .overlay {
   display: none;
@@ -534,6 +464,89 @@ body {
   bottom: 0;
   z-index: 10000;
   background-image: -webkit-linear-gradient(200deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.2) 33%, rgba(0, 0, 0, 0) 33.6%, rgba(0, 0, 0, 0) 100%);
+}
+#phone #menu {
+  position: fixed;
+  bottom: 108px;
+  left: 15px;
+  background-color: #000;
+  color: #aaa;
+  height: 50px;
+  z-index: 1;
+  display: table;
+  width: calc(100% - 29px);
+  border-spacing: 0px;
+  table-layout: fixed;
+  border-top: 1px solid #aaa;
+  font-size: 11px;
+}
+#phone #menu li {
+  background-color: #000;
+  border-left: 1px solid #aaa;
+  display: table-cell;
+  vertical-align: middle;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+#phone #menu li:before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 30px;
+  position: absolute;
+  bottom: 16px;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: 50% 50%;
+  -webkit-mask-size: 26px;
+  background-color: #aaa;
+}
+#phone #menu li:after {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+#phone #menu li:first-child {
+  border: 0 none;
+}
+#phone #menu li[data-view="home"]:before {
+  -webkit-mask-image: url(../images/icons/home.png);
+  -webkit-mask-size: 31px;
+}
+#phone #menu li[data-view="home"]:after {
+  content: "Home";
+}
+#phone #menu li[data-view="wallet"]:before {
+  -webkit-mask-image: url(../images/icons/wallet.png);
+}
+#phone #menu li[data-view="wallet"]:after {
+  content: "Wallet";
+}
+#phone #menu li[data-view="budgets"]:before {
+  -webkit-mask-image: url(../images/icons/budget5.png);
+}
+#phone #menu li[data-view="budgets"]:after {
+  content: "Budgets";
+}
+#phone #menu li[data-view="cards"]:before {
+  -webkit-mask-image: url(../images/icons/cards.png);
+}
+#phone #menu li[data-view="cards"]:after {
+  content: "Cards";
+}
+#phone #menu li[data-view="back"]:before {
+  -webkit-mask-image: url(../images/icons/back.png);
+}
+#phone #menu li[data-view="back"]:after {
+  content: "Back";
+}
+#phone #menu li[data-view="search"]:before {
+  -webkit-mask-image: url(../images/icons/search.png);
+  -webkit-mask-size: 24px;
+}
+#phone #menu li[data-view="search"]:after {
+  content: "Search";
 }
 .transaction {
   background-color: #151;

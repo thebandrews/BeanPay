@@ -16,6 +16,8 @@ define([
 
         el: '#phone',
 
+        viewStack: [],
+
         events: {
             "click #menu li": "menuSelect"
         },
@@ -32,11 +34,12 @@ define([
             this.transactionsView = new TransactionsView(info);
 
             this.$content.append(this.budgetsView.$el);
+            this.$content.append(this.cardsView.$el);
             this.$content.append(this.transactionsView.$el);
-        },
+       	},
 
         menuSelect: function (e) {
-            console.log(e);
+            this.$content.attr("data-view",$(e.currentTarget).attr("data-view"));
         },
 
         render: function() {
@@ -44,7 +47,7 @@ define([
 
             this.$content = this.$el.find(".content");
 
-            this.$content.append(_.template(menuTmpl, {}));
+            this.$el.append(_.template(menuTmpl, {}));
         },
 
         setCard: function(card) {

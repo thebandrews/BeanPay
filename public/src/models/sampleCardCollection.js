@@ -5,7 +5,7 @@ define(function () {
             name: "CapitalOne",
             type: "VISA",
             image: "redcard.jpg",
-            number: "",
+            number: "4000 1234 5678 9010",
             CVV: "383"
         },
         {
@@ -13,7 +13,7 @@ define(function () {
             name: "Virgin",
             type: "MasterCard",
             image: "blackcard.jpg",
-            number: "",
+            number: "5412 3456 7890 1234",
             CVV: "049"
         },
         {
@@ -21,7 +21,7 @@ define(function () {
             name: "CapitalOne",
             type: "AmericanExpress",
             image: "bluecard.jpg",
-            number: "",
+            number: "0000 1234 5678 9010",
             CVV: "756"
         }
     ];
