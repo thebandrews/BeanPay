@@ -4,6 +4,8 @@ define([
     'jquery',
     'text!controllers/AppView/app.html',
     'text!controllers/AppView/touchview.html',
+    'text!controllers/AppView/taskhelp.html',
+    'text!controllers/AppView/datahelp.html',
     'PhoneView',
     'MagicCardView',
     'BudgetsView',
@@ -18,7 +20,7 @@ define([
     'models/sampleBudgetCollection',
     'models/sampleCardCollection',
     'models/sampleTransactionCollection'
-], function (_, Backbone, $, tmpl, touch_tmpl, PhoneView, MagicCardView, BudgetsView, BudgetView, CardsView, SearchView, TransactionsView, TransactionView, BudgetCollection, CardCollection, TransactionCollection, budgets, cards, transactions) {
+], function (_, Backbone, $, tmpl, touch_tmpl, taskhelp_tmpl, datahelp_tmpl, PhoneView, MagicCardView, BudgetsView, BudgetView, CardsView, SearchView, TransactionsView, TransactionView, BudgetCollection, CardCollection, TransactionCollection, budgets, cards, transactions) {
 
     var budgetCollection = new BudgetCollection(localStorage.getItem('budgets') || budgets);
     var cardCollection = new CardCollection(localStorage.getItem('cards') || cards);
@@ -102,6 +104,8 @@ define([
 
         render: function () {
             this.$el.empty().append(_.template(touch_tmpl, {}), _.template(tmpl, {}));
+            this.$el.find("#task_help").append(_.template(taskhelp_tmpl, {}));
+            this.$el.find("#data_help").append(_.template(datahelp_tmpl, {}));
         },
 
         setCard: function (card) {

@@ -9,6 +9,12 @@ body {
   min-width: 100%;
   background-color: #f3f3f3;
 }
+#app {
+  width: 100%;
+  min-width: 1280px;
+  height: 100%;
+  min-height: 1000px;
+}
 .touch_view,
 .old_touch {
   display: none;
@@ -62,8 +68,19 @@ body {
   box-shadow: #474 2px 2px 2px;
 }
 .budgets {
-  height: 130px;
+  -webkit-transition: height 0.5s;
   background-color: #96C56F;
+}
+[data-view] .budgets {
+  overflow: hidden;
+  height: 0px;
+}
+[data-view="home"] .budgets {
+  height: 130px;
+}
+[data-view="budgets"] .budgets {
+  overflow-y: scroll;
+  height: 517px;
 }
 .budgetGraph {
   float: left;
@@ -91,6 +108,7 @@ body {
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
   background-color: #486;
+  -webkit-transition: height 0.5s;
 }
 .cards .card {
   height: 100px;
@@ -99,6 +117,17 @@ body {
 }
 .cards .card img {
   width: 60px;
+}
+[data-view] .cards {
+  overflow: hidden;
+  height: 0px;
+}
+[data-view="home"] .cards {
+  height: 100px;
+}
+[data-view="cards"] .cards {
+  overflow-y: scroll;
+  height: 517px;
 }
 #card {
   -webkit-touch-callout: none;
@@ -548,6 +577,20 @@ body {
 #phone #menu li[data-view="search"]:after {
   content: "Search";
 }
+.transactions {
+  -webkit-transition: height 0.5s;
+}
+[data-view] .transactions {
+  overflow: hidden;
+  height: 0px;
+}
+[data-view="home"] .transactions {
+  height: 285px;
+}
+[data-view="search"] .transactions {
+  overflow-y: scroll;
+  height: 517px;
+}
 .transaction {
   background-color: #151;
   height: 90px;
@@ -558,4 +601,175 @@ body {
 }
 .transaction img {
   width: 60px;
+}
+#task_help {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 11%;
+}
+#task_help .credit_cards {
+  position: absolute;
+  -webkit-transition: all 0.6s;
+  height: 100%;
+  width: 100%;
+  bottom: 120%;
+}
+#task_help .credit_cards.showing {
+  bottom: 50%;
+}
+#task_help .credit_cards .credit_card {
+  position: absolute;
+  bottom: 0;
+  border-radius: 15px;
+  border: solid 2px #000;
+  height: 311px;
+  width: 490px;
+  background-color: #444;
+  color: #ccc;
+  box-shadow: rgba(0, 0, 0, 0.3) 3px 6px 5px;
+  background-size: 100%;
+  -webkit-transition: all 0.6s;
+  cursor: pointer;
+  z-index: 20000;
+}
+#task_help .credit_cards .credit_card.sideways {
+  box-shadow: rgba(0, 0, 0, 0.3) -6px 3px 5px;
+  -webkit-transform: rotate(-90deg) scale(0.7);
+}
+#task_help .credit_cards .credit_card.sideways:hover {
+  -webkit-transition: all 0.2s;
+  -webkit-transform: rotate(-60deg) scale(0.85);
+  bottom: -80%;
+}
+#task_help .credit_cards .credit_card[data-card-id="generic"] {
+  left: 0%;
+  background-color: #555;
+}
+#task_help .credit_cards .credit_card[data-card-id="red"] {
+  left: 5%;
+  background-color: #f00;
+  background-image: url(../images/RED.png);
+}
+#task_help .credit_cards .credit_card[data-card-id="blue"] {
+  left: 10%;
+  background-image: url(../images/BLUE.png);
+  background-size: 100%;
+}
+#task_help .credit_cards .credit_card[data-card-id="black"] {
+  left: 15%;
+  background-image: url(../images/BLACK.png);
+  background-color: #000;
+}
+#task_help .purchases {
+  position: absolute;
+  -webkit-transition: all 0.6s;
+  height: 100%;
+  width: 100%;
+  bottom: 110%;
+}
+#task_help .purchases.showing {
+  bottom: 0;
+}
+#task_help .purchases .purchase {
+  position: absolute;
+  bottom: 0;
+  border-radius: 270px;
+  height: 270px;
+  width: 270px;
+  background-color: transparent;
+  background-size: 100%;
+  z-index: 20000;
+  -webkit-transition: all 0.6s;
+  -webkit-transform: scale(0.7);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  cursor: pointer;
+}
+#task_help .purchases .purchase:hover {
+  -webkit-transition: all 0.2s;
+  -webkit-transform: rotate(90deg) scale(0.85);
+  bottom: -100%;
+}
+#task_help .purchases .purchase[data-merchant="upchuck_coffee"] {
+  right: 10%;
+  background-image: url(../images/COFFEE.png);
+}
+#task_help .purchases .purchase[data-merchant="bobs_burgers"] {
+  right: 20%;
+  background-image: url(../images/BURGERB.png);
+}
+#task_help .purchases .purchase[data-merchant="joes_tavern"] {
+  right: 30%;
+  background-image: url(../images/BEER.png);
+  border-radius: 270px;
+}
+#task_help .purchases .purchase[data-merchant="generic"] {
+  bottom: -50%;
+  border-radius: 0;
+  height: 630px;
+  right: 0%;
+  background-image: url(../images/RECEIPT.png);
+  background-color: #555;
+  box-shadow: rgba(0, 0, 0, 0.3) 3px 6px 5px;
+}
+#task_help .purchases .purchase[data-merchant="generic"]:hover {
+  -webkit-transform: scale(0.85);
+  bottom: -100%;
+}
+#data_help {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 11%;
+}
+#data_help div {
+  position: absolute;
+  top: 40%;
+  height: 101%;
+  margin: 0 0 0 -7.5%;
+  width: 15%;
+  background-color: white;
+  color: black;
+  background-size: 100%;
+  z-index: 20000;
+  -webkit-transition: all 0.6s;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.3) 3px 6px 5px;
+  text-align: center;
+}
+#data_help div:hover {
+  top: 0%;
+}
+#data_help div[data-action]:after {
+  display: block;
+  height: 60%;
+  vertical-align: middle;
+  margin-top: -webkit-calc(10%);
+}
+#data_help div[data-action="clear"] {
+  left: 20%;
+}
+#data_help div[data-action="clear"]:after {
+  content: "Clear";
+}
+#data_help div[data-action="example"] {
+  left: 40%;
+}
+#data_help div[data-action="example"]:after {
+  content: "Example";
+}
+#data_help div[data-action="save"] {
+  left: 60%;
+}
+#data_help div[data-action="save"]:after {
+  content: "Save";
+}
+#data_help div[data-action="load"] {
+  left: 80%;
+}
+#data_help div[data-action="load"]:after {
+  content: "Load";
 }

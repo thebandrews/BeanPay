@@ -19,6 +19,7 @@ define(['underscore', 'backbone', 'models/Card/CardModel'], function(_, Backbone
         },
         setElement: function(model) {
             this.currentElement = model;
+        	this.trigger('cardSelected');
         },
         next: function (){
             this.setElement(this.at(this.indexOf(this.getElement()) + 1));

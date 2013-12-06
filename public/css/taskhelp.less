@@ -1,0 +1,134 @@
+#task_help {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 11%;
+
+	.credit_cards {
+		position: absolute;
+		-webkit-transition: all 0.6s;
+		height: 100%;
+		width: 100%;
+		bottom: 120%;
+
+		&.showing {
+			bottom: 50%;
+		}
+
+		.credit_card {
+			position: absolute;
+			bottom: 0;
+			border-radius: 15px;
+			border: solid 2px #000;
+			height: 311px;
+			width: 490px;
+			background-color: #444;
+			color: #ccc;
+			box-shadow: rgba(0, 0, 0, 0.3) 3px 6px 5px;
+			background-size: 100%;
+			-webkit-transition: all 0.6s;
+			cursor: pointer;
+			z-index: 20000;
+
+			&.sideways {
+				box-shadow: rgba(0, 0, 0, 0.3) -6px 3px 5px;
+				-webkit-transform: rotate(-90deg) scale(0.7);
+
+				&:hover {
+					-webkit-transition: all 0.2s;
+					-webkit-transform: rotate(-60deg) scale(0.85);
+					bottom: -80%;
+				}
+			}
+
+			&[data-card-id="generic"] {
+				left: 0%;
+				background-color: #555;
+			}
+
+			&[data-card-id="red"] {
+				left: 5%;
+				background-color: #f00;
+				background-image: url(../images/RED.png);
+			}
+
+			&[data-card-id="blue"] {
+				left: 10%;
+				background-image: url(../images/BLUE.png);
+				background-size: 100%;
+			}
+
+			&[data-card-id="black"] {
+				left: 15%;
+				background-image: url(../images/BLACK.png);
+				background-color: #000;
+			}
+
+		}
+	}
+
+	.purchases {
+		position: absolute;
+		-webkit-transition: all 0.6s;
+		height: 100%;
+		width: 100%;
+		bottom: 110%;
+
+		&.showing {
+			bottom: 0;
+		}
+
+		.purchase {
+			position: absolute;
+			bottom: 0;
+			border-radius: 270px;
+			height: 270px;
+			width: 270px;
+			background-color: transparent;
+			background-size: 100%;
+			z-index: 20000;
+			-webkit-transition: all 0.6s;
+			-webkit-transform: scale(0.7);
+			background-repeat: no-repeat;
+			background-position: bottom;
+			cursor: pointer;
+
+			&:hover {
+				-webkit-transition: all 0.2s;
+				-webkit-transform: rotate(90deg) scale(0.85);
+				bottom: -100%;
+			}
+
+
+			&[data-merchant="upchuck_coffee"] {
+				right: 10%;
+				background-image: url(../images/COFFEE.png);
+			}
+
+			&[data-merchant="bobs_burgers"] {
+				right: 20%;
+				background-image: url(../images/BURGERB.png);
+			}
+
+			&[data-merchant="joes_tavern"] {
+				right: 30%;
+				background-image: url(../images/BEER.png);
+				border-radius: 270px;
+			}
+
+			&[data-merchant="generic"] {
+				bottom: -50%;
+				border-radius: 0;
+				height: 630px;
+				right: 0%;
+				background-image: url(../images/RECEIPT.png);
+				background-color: #555;
+				box-shadow: rgba(0, 0, 0, 0.3) 3px 6px 5px;
+				&:hover {
+					-webkit-transform: scale(0.85);
+					bottom: -100%;
+				}
+			}
+		}
+	}
+}

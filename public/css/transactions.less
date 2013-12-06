@@ -1,3 +1,27 @@
+.transactions {
+	-webkit-transition: height 0.5s;
+}
+
+[data-view] {
+	.transactions {
+		overflow: hidden;
+		height: 0px;
+	}	
+}
+
+[data-view="home"] {
+	.transactions {
+		height: 285px;
+	}
+}
+
+[data-view="search"] {
+	.transactions {
+		overflow-y: scroll;
+		height: 517px;
+	}
+}
+
 .transaction {
 	background-color: #151;
 	height: 90px;

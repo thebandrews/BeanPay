@@ -19,6 +19,8 @@ define([
             this.cardCollection = info.cardCollection;
             this.transactionCollection = info.transactionCollection;
             this.render();
+
+            this.$el.addClass("budgets").attr("data-switch-view","budgets");
         },
 
         budgetGraphClick: function (e) {
@@ -26,7 +28,6 @@ define([
         },
 
         render: function () {
-            this.$el.addClass("budgets");
             // this.$el.append(_.template(tmpl, {}));
             this.budgetCollection.each(_.bind(function (budget) {
                 var spentPercent = Math.random();

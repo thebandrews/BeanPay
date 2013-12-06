@@ -21,10 +21,16 @@ define([
             this.budgetCollection = info.budgetCollection;
             this.cardCollection = info.cardCollection;
 
+            this.cardCollection.on("cardSelected", _.bind(this.cardSelected, this));
+
             this.render();
 
             this.budgetsView = new BudgetsView(info);
             this.cardsView = new CardsView(info);
+        },
+
+        cardSelected: function() {
+        	this.render();
         },
 
         render: function() {

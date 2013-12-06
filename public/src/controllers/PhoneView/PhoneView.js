@@ -19,7 +19,8 @@ define([
         viewStack: [],
 
         events: {
-            "click #menu li": "menuSelect"
+            'click #menu li': "menuSelect",
+            'mousedown [data-view="home"] > div': "switchTo"
         },
 
         initialize: function(info) {
@@ -40,6 +41,10 @@ define([
 
         menuSelect: function (e) {
             this.$content.attr("data-view",$(e.currentTarget).attr("data-view"));
+        },
+
+        switchTo: function (e) {
+            this.$content.attr("data-view",$(e.currentTarget).attr("data-switch-view"));
         },
 
         render: function() {

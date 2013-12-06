@@ -1,7 +1,28 @@
 .budgets {
-	height: 130px;
+	-webkit-transition: height 0.5s;
 	background-color: #96C56F;
 }
+
+[data-view] {
+	.budgets {
+		overflow: hidden;
+		height: 0px;
+	}	
+}
+
+[data-view="home"] {
+	.budgets {
+		height: 130px;
+	}
+}
+
+[data-view="budgets"] {
+	.budgets {
+		overflow-y: scroll;
+		height: 517px;
+	}
+}
+
 
 .budgetGraph {
 	float: left;

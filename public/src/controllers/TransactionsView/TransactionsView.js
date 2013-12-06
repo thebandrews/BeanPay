@@ -18,6 +18,8 @@ define([
             this.budgetCollection = info.budgetCollection;
             this.cardCollection = info.cardCollection;
             this.render();
+
+            this.$el.addClass("transactions").attr("data-switch-view","search");
         },
 
         transactionSelect: function (e) {
@@ -25,8 +27,6 @@ define([
         },
 
         render: function () {
-            this.$el.addClass("transactions");
-
             var transactions = [], budgets = [];
 
             this.transactionCollection.each(_.bind(function (transaction) {
