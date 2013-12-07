@@ -48,6 +48,10 @@ define([
             }, this));
 
             this.$el.empty().append(_.template(tmpl, {cards: cards})).append(_.template(addACardTmpl, {}));
+
+            if(this.$el.find(".current").length && $("#phone").attr('data-view')==='home') {
+            	this.$el.scrollTop(this.$el.find(".card").index(this.$el.find(".current")) * this.$el.find(".card").outerHeight());
+            }
         }
     });
 });

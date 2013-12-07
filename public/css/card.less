@@ -1,16 +1,21 @@
 .cards {
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
-	background-color: #486;
+	background-color: #000;
 	-webkit-transition: height 0.5s;
 
 	.card {
 		height: 100px;
 		overflow: hidden;
 		border-bottom: 1px solid #000;
+		background-color: rgba(68, 136, 102, 0.9);
 
 		img {
 			width: 60px;
+		}
+
+		&.current {
+			background-color: rgba(78, 156, 112, 1);
 		}
 	}
 }

@@ -56,7 +56,7 @@ define([
         },
 
         setCard: function(card) {
-            this.current_card = card.get('id');
+            this.current_card = card && card.get('id');
         }
     });
 });
