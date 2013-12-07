@@ -41,10 +41,12 @@ define([
 
         menuSelect: function (e) {
             this.$el.attr("data-view",$(e.currentTarget).attr("data-view"));
+            this.cardsView.cardSelected();
         },
 
         switchTo: function (e) {
             this.$el.attr("data-view",$(e.currentTarget).attr("data-switch-view"));
+            this.cardsView.cardSelected();
         },
 
         render: function() {

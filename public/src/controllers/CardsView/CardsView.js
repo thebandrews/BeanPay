@@ -24,11 +24,28 @@ define([
         },
 
         cardSelected: function () {
-        	this.render();
+            var currentCardID = this.cardCollection.getElement();
+            currentCardID = currentCardID && currentCardID.get('id');
+
+        	this.$el.find(".current").removeClass('current');
+        	this.$el.find('[data-id="' + currentCardID + '"]').addClass('current');
+
+            if(this.$el.find(".current").length && $("#phone").attr('data-view')==='home') {
+            	this.$el.scrollTop(this.$el.find(".card").index(this.$el.find(".current")) * this.$el.find(".card").outerHeight());
+            }
         },
 
         selectCard: function (e) {
-        	this.cardCollection.setElement(this.cardCollection.get($(e.currentTarget).attr('data-id')));
+        	if($(e.currentTarget).attr('data-id')==="add") {
+        		this.addCard();
+        	}
+        	else {
+	        	this.cardCollection.setElement(this.cardCollection.get($(e.currentTarget).attr('data-id')));
+        	}
+        },
+
+        addCard: function () {
+        	console.log("adding card");
         },
 
         render: function () {
@@ -42,16 +59,13 @@ define([
                     type: 			card.get('type'),
                     number: 		card.get('number'),
                     name: 			card.get('name'),
-                    image: 			card.get('image'),
-                    isCurrent: 		card.get('id') === currentCardID
+                    image: 			card.get('image')
                 });
             }, this));
 
             this.$el.empty().append(_.template(tmpl, {cards: cards})).append(_.template(addACardTmpl, {}));
 
-            if(this.$el.find(".current").length && $("#phone").attr('data-view')==='home') {
-            	this.$el.scrollTop(this.$el.find(".card").index(this.$el.find(".current")) * this.$el.find(".card").outerHeight());
-            }
+			this.cardSelected();
         }
     });
 });

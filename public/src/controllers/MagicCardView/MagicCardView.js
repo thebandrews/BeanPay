@@ -39,7 +39,7 @@ define([
         },
 
         prevCard: function(card) {
-            this.cardCollection.next();
+            this.cardCollection.prev();
             this.render();
         },
 

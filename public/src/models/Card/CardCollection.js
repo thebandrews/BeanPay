@@ -26,7 +26,11 @@ define(['underscore', 'backbone', 'models/Card/CardModel'], function(_, Backbone
             return this;
         },
         prev: function() {
-            this.setElement(this.at(this.indexOf(this.getElement()) - 1));
+        	var index = this.indexOf(this.getElement()) - 1;
+        	if (index===-1) {
+        		index = this.length - 1;
+        	}
+            this.setElement(this.at(index));
             return this;
         }
     });
