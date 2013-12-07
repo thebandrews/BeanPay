@@ -20,6 +20,8 @@ define([
             this.render();
 
             this.$el.addClass("transactions").attr("data-switch-view","search");
+
+            this.transactionCollection.on('add', _.bind(this.render, this));
         },
 
         transactionSelect: function (e) {
@@ -43,6 +45,8 @@ define([
                 });
             }, this));
 
+            transactions.sort(function (a,b) { return b.date - a.date; });
+
             this.budgetCollection.each(function (budget) {
                 budgets.push({
                     name: 		budget.get('name'),
@@ -50,7 +54,7 @@ define([
                 });
             });
 
-            this.$el.append(_.template(tmpl, { budgets: budgets, transactions: transactions }));
+            this.$el.empty().append(_.template(tmpl, { budgets: budgets, transactions: transactions }));
         }
     });
 });

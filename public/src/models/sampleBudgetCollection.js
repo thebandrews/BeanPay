@@ -3,13 +3,15 @@ define(function () {
         {
             id: "1",
             name: "Coffee",
+            category: "Coffee",
             period: "Monthly",
             startDate: "1",
             amount: "30"
         },
         {
             id: "2",
-            name: "Eating Out",
+            name: "Restaurants",
+            category: "Restaurants",
             period: "Monthly",
             startDate: "1",
             amount: "100"
@@ -17,6 +19,7 @@ define(function () {
         {
             id: "3",
             name: "Bars",
+            category: "Bars",
             period: "Monthly",
             startDate: "1",
             amount: "100"

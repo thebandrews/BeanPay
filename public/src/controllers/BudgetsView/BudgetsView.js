@@ -21,6 +21,8 @@ define([
             this.render();
 
             this.$el.addClass("budgets").attr("data-switch-view","budgets");
+
+            this.transactionCollection.on('add', _.bind(this.render, this));
         },
 
         budgetGraphClick: function (e) {
@@ -28,16 +30,25 @@ define([
         },
 
         render: function () {
-            this.$el.append(_.template(tmpl, {}));
+            this.$el.empty().append(_.template(tmpl, {}));
             this.budgetCollection.each(_.bind(function (budget) {
-                var spentPercent = Math.random();
-                var remaining = "" + (Math.floor((1 - spentPercent) * budget.get('amount') * 100) / 100);
+            	var spent = 0;
+            	var budgetAmount = parseFloat(budget.get('amount'),10);
+
+            	this.transactionCollection.each(function (transaction) {
+            		if(transaction.get('budget_id')===budget.get('id')) {
+            			spent += parseFloat(transaction.get('amount'),10);
+            		}
+            	});
+
+                var spentPercent = spent / budgetAmount;
+                var remaining = budgetAmount - spent; //"" + (Math.floor((1 - spentPercent) * budget.get('amount') * 100) / 100);
                 spentPercent = Math.floor(spentPercent * 100);  //  budget.get('amount')
 
                 var html = _.template(budgetGraphTmpl, { name: budget.get('name'), remaining: remaining });
                 var $html = $(html);
 
-                $html.find(".budgetPie").append(createPie("pie", "90px", "white", [spentPercent, 100 - spentPercent], ["#55aa55", "#222222"]));
+                $html.find(".budgetPie").append(createPie("pie", "90px", "white", [Math.min(100, spentPercent), Math.max(0, 100 - spentPercent)], ["#222222", "#55aa55"]));
                 this.$el.find(".addABudget").before($html);
             }, this));
         }

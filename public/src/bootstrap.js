@@ -9,6 +9,7 @@ var require = {
         cachedAjax: 'components/cachedAjax',
         CSSpie: 'components/CSSpie',
         dateFormat: 'components/dateFormat',
+        stringToTitleCase: 'components/stringToTitleCase',
         BudgetCollection: 'models/Budget/BudgetCollection',
         TransactionCollection: 'models/Transaction/TransactionCollection',
         CardCollection: 'models/Card/CardCollection',
