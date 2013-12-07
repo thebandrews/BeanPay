@@ -4,8 +4,9 @@ define([
     'jquery',
     'CardCollection',
     'CardsView',
-    'text!controllers/CardsView/tmpl.html'
-], function(_, Backbone, $, CardCollection, CardsView, tmpl) {
+    'text!controllers/CardsView/tmpl.html',
+    'text!controllers/CardsView/addACard.html'
+], function(_, Backbone, $, CardCollection, CardsView, tmpl, addACardTmpl) {
 
     return Backbone.View.extend({
         events: {
@@ -45,7 +46,7 @@ define([
                 });
             }, this));
 
-            this.$el.empty().append(_.template(tmpl, {cards: cards}));
+            this.$el.empty().append(_.template(tmpl, {cards: cards})).append(_.template(addACardTmpl, {}));
         }
     });
 });

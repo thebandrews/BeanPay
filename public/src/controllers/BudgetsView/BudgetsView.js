@@ -28,7 +28,7 @@ define([
         },
 
         render: function () {
-            // this.$el.append(_.template(tmpl, {}));
+            this.$el.append(_.template(tmpl, {}));
             this.budgetCollection.each(_.bind(function (budget) {
                 var spentPercent = Math.random();
                 var remaining = "" + (Math.floor((1 - spentPercent) * budget.get('amount') * 100) / 100);
@@ -38,7 +38,7 @@ define([
                 var $html = $(html);
 
                 $html.find(".budgetPie").append(createPie("pie", "90px", "white", [spentPercent, 100 - spentPercent], ["#55aa55", "#222222"]));
-                this.$el.append($html);
+                this.$el.find(".addABudget").before($html);
             }, this));
         }
     });
