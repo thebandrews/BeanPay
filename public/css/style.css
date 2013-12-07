@@ -508,6 +508,7 @@ body {
   table-layout: fixed;
   border-top: 1px solid #aaa;
   font-size: 11px;
+  cursor: pointer;
 }
 #phone #menu li {
   background-color: #000;
@@ -570,12 +571,42 @@ body {
 #phone #menu li[data-view="back"]:after {
   content: "Back";
 }
+#phone #menu li[data-view="transactions"]:before {
+  -webkit-mask-image: url(../images/icons/transactions.png);
+}
+#phone #menu li[data-view="transactions"]:after {
+  content: "Transactions";
+}
 #phone #menu li[data-view="search"]:before {
   -webkit-mask-image: url(../images/icons/search.png);
   -webkit-mask-size: 24px;
 }
 #phone #menu li[data-view="search"]:after {
   content: "Search";
+}
+#phone[data-view="home"] #menu [data-view="home"] {
+  color: rgba(0, 200, 70, 0.8);
+}
+#phone[data-view="home"] #menu [data-view="home"]:before {
+  background-color: rgba(0, 200, 70, 0.8);
+}
+#phone[data-view="budgets"] #menu [data-view="budgets"] {
+  color: rgba(0, 200, 70, 0.8);
+}
+#phone[data-view="budgets"] #menu [data-view="budgets"]:before {
+  background-color: rgba(0, 200, 70, 0.8);
+}
+#phone[data-view="cards"] #menu [data-view="cards"] {
+  color: rgba(0, 200, 70, 0.8);
+}
+#phone[data-view="cards"] #menu [data-view="cards"]:before {
+  background-color: rgba(0, 200, 70, 0.8);
+}
+#phone[data-view="transactions"] #menu [data-view="transactions"] {
+  color: rgba(0, 200, 70, 0.8);
+}
+#phone[data-view="transactions"] #menu [data-view="transactions"]:before {
+  background-color: rgba(0, 200, 70, 0.8);
 }
 .transactions {
   -webkit-transition: height 0.5s;
@@ -588,7 +619,8 @@ body {
 [data-view="home"] .transactions {
   height: 285px;
 }
-[data-view="search"] .transactions {
+[data-view="search"] .transactions,
+[data-view="transactions"] .transactions {
   overflow-y: scroll;
   height: 517px;
 }

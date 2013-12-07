@@ -20,7 +20,7 @@ define([
 
         events: {
             'click #menu li': "menuSelect",
-            'mousedown [data-view="home"] > div': "switchTo"
+            'mousedown [data-switch-view]': "switchTo"
         },
 
         initialize: function(info) {
@@ -40,11 +40,11 @@ define([
        	},
 
         menuSelect: function (e) {
-            this.$content.attr("data-view",$(e.currentTarget).attr("data-view"));
+            this.$el.attr("data-view",$(e.currentTarget).attr("data-view"));
         },
 
         switchTo: function (e) {
-            this.$content.attr("data-view",$(e.currentTarget).attr("data-switch-view"));
+            this.$el.attr("data-view",$(e.currentTarget).attr("data-switch-view"));
         },
 
         render: function() {
