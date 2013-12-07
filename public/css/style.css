@@ -6,14 +6,16 @@ html,
 body {
   -webkit-transform: translate3d(0, 0, 0);
   height: 100%;
-  min-width: 100%;
+  width: 100%;
+  min-width: 1080px;
+  min-height: 980px;
   background-color: #f3f3f3;
+  font-family: "Gill Sans", Verdana, Arial, sans-serif;
 }
 #app {
   width: 100%;
   min-width: 1280px;
   height: 100%;
-  min-height: 1000px;
 }
 .touch_view,
 .old_touch {
@@ -181,6 +183,28 @@ body {
 #card .card_front .card_content .locked img {
   height: 29px;
   width: 28px;
+}
+#card .card_front .card_content .noCards {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: block;
+  background-color: rgba(100, 170, 100, 0.8);
+}
+#card .card_front .card_content .noCards:before {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  content: "Welcome to BeanPay!";
+  font-size: 40px;
+}
+#card .card_front .card_content .noCards:after {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  content: "To begin, open the BeanPay app and choose \"Add Card\".";
 }
 #card .card_front .card_content:before {
   content: "";
@@ -507,8 +531,9 @@ body {
   border-spacing: 0px;
   table-layout: fixed;
   border-top: 1px solid #aaa;
-  font-size: 11px;
+  font-size: 13px;
   cursor: pointer;
+  overflow: hidden;
 }
 #phone #menu li {
   background-color: #000;
@@ -761,7 +786,7 @@ body {
 #data_help > div {
   position: absolute;
   top: 90%;
-  min-height: 100px;
+  min-height: 170px;
   margin: 0 0 0 -12.5%;
   width: 25%;
   background-color: white;
@@ -776,7 +801,7 @@ body {
   pointer-events: auto;
 }
 #data_help > div:hover {
-  top: 85%;
+  top: 66%;
 }
 #data_help > div[data-action]:before {
   display: block;
@@ -785,11 +810,20 @@ body {
   vertical-align: middle;
 }
 #data_help > div[data-action="save"] {
-  cursor: pointer;
   left: 33%;
 }
 #data_help > div[data-action="save"]:before {
   content: "Save State";
+}
+#data_help > div[data-action="save"] input {
+  display: block;
+  width: 220px;
+  height: 30px;
+  margin: 0 auto 20px;
+  text-align: center;
+}
+#data_help > div[data-action="save"] input[type="button"] {
+  width: 100px;
 }
 #data_help > div[data-action="load"] {
   left: 66%;

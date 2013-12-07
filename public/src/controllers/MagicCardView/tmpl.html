@@ -1,6 +1,7 @@
 <div class="card_front">
     <div class="card_content">
-        <img src="images/<%= image %>" />
+        <% if(image) { %><img src="images/<%= image %>" /><% } %>
+        <% if(!hasCards) { %><span class="noCards"></span><% } %>        
         <% if(locked) { %><span class="locked"><img src="images/lock.png" /></span><% } %>
     </div>
 </div>

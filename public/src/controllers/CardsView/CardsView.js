@@ -33,7 +33,8 @@ define([
 
         render: function () {
             var cards = [];
-            var currentCardID = this.cardCollection.getElement().get('id');
+            var currentCardID = this.cardCollection.getElement();
+            currentCardID = currentCardID && currentCardID.get('id');
 
             this.cardCollection.each(_.bind(function (card) {
                 cards.push({

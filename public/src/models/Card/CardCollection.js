@@ -6,14 +6,14 @@ define(['underscore', 'backbone', 'models/Card/CardModel'], function(_, Backbone
             this.bind('reset', this.init, this);
         },
         init: function(){
-            this.setElement(this.at(0));
+            this.currentElement = this.at(0);
         },
         comparator: function(model) {
             return model.get("id");
         },
         getElement: function() {
             if(!this.currentElement) {
-                this.init();
+	            this.init();
             }
             return this.currentElement;
         },

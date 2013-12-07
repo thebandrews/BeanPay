@@ -34,7 +34,8 @@ define([
         },
 
         render: function() {
-            this.$el.empty().append(_.template(tmpl, _.extend({owner: 'Ben', locked: false}, this.cardCollection.getElement().attributes)));
+        	var currentCard = this.cardCollection.getElement();
+            this.$el.empty().append(_.template(tmpl, _.extend({owner: 'Ben', locked: false, hasCards: !!currentCard}, (currentCard ? currentCard.attributes : { image: null, CVV: ["", "", ""] }) )));
         },
 
         prevCard: function(card) {

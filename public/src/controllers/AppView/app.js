@@ -23,11 +23,15 @@ define([
     'models/sampleTransactionCollection'
 ], function (_, Backbone, $, stringToTitleCase, tmpl, touch_tmpl, taskhelp_tmpl, datahelp_tmpl, PhoneView, MagicCardView, BudgetsView, BudgetView, CardsView, SearchView, TransactionsView, TransactionView, BudgetCollection, CardCollection, TransactionCollection, budgets, cards, transactions) {
 
-    var budgetCollection = new BudgetCollection(localStorage.getItem('budgets') || budgets);
-    var cardCollection = new CardCollection(localStorage.getItem('cards') || cards);
-    var transactionCollection = new TransactionCollection(localStorage.getItem('transactions') || transactions);
+	if(!localStorage.getItem('storedData')) {
+		localStorage.setItem('storedData',"{}");
+	}
 
-    var cards = [
+    var budgetCollection = new BudgetCollection(JSON.parse(localStorage.getItem('budgets')) || budgets);
+    var cardCollection = new CardCollection(JSON.parse(localStorage.getItem('cards')) || cards);
+    var transactionCollection = new TransactionCollection(JSON.parse(localStorage.getItem('transactions')) || transactions);
+
+    var wallet_cards = [
 	    {
 	        name: "CapitalOne",
 	        type: "VISA",
@@ -54,11 +58,7 @@ define([
     var $body = $(document.body);
     var touchTmpl = _.template(touch_tmpl);
 
-    var resetPrototypeData = function () {
-        localStorage.removeItem('budgets');
-        localStorage.removeItem('cards');
-        localStorage.removeItem('transactions');
-
+    var setPrototypeData = function (budgets, cards, transactions) {
         budgetCollection = new BudgetCollection(budgets);
         cardCollection = new CardCollection(cards);
         transactionCollection = new TransactionCollection(transactions);
@@ -108,9 +108,13 @@ define([
             // "mousedown .touchable": window.touchStart,
             // "mousemove .touchable": window.touchMove,
             // "mouseup": window.touchEnd,
+
             "click .purchase": "doPurchase",
             "click .addABudget": "addBudget",
-            "click .addACard": "addCard"
+            "click .addACard": "addCard",
+
+            'click [data-action="save"] input[type="button"]': "saveDataState",
+            'click [data-action="load"] [data-name]': "loadDataState",
         },
 
         initialize: function () {
@@ -123,10 +127,14 @@ define([
 
             this.phoneView.on('cardChosen', _.bind(this.setCard, this));
             this.magicView.on('cardChosen', _.bind(this.setCard, this));
+
+            budgetCollection.on('add change remove', function () { localStorage.setItem('budgets', JSON.stringify(budgetCollection)); });
+            cardCollection.on('add change remove', function () { localStorage.setItem('cards', JSON.stringify(cardCollection)); });
+            transactionCollection.on('add change remove', function () { localStorage.setItem('transactions', JSON.stringify(transactionCollection)); });
         },
 
-        resetPrototype: function () {
-            resetPrototypeData();
+        resetPrototype: function (budgets, cards, transactions) {
+            setPrototypeData(budgets, cards, transactions);
 
             this.initialize();
         },
@@ -134,7 +142,7 @@ define([
         render: function () {
             this.$el.empty().append(_.template(touch_tmpl, {}), _.template(tmpl, {}));
             this.$el.find("#task_help").append(_.template(taskhelp_tmpl, {}));
-            this.$el.find("#data_help").append(_.template(datahelp_tmpl, {}));
+            this.$el.find("#data_help").append(_.template(datahelp_tmpl, {storedData: JSON.parse(localStorage.getItem('storedData'))}));
         },
 
         setCard: function (card) {
@@ -165,6 +173,49 @@ define([
 
         addCard: function(e) {
         	var type = $(e.currentTarget).attr('data-merchant');
+        },
+
+        saveDataState: function(e) {
+        	var saveName = $(e.currentTarget).closest('[data-action="save"]').find('input[type="text"]').val();
+
+        	if(!saveName) {
+        		alert("Please enter a name for this saved data.");
+        	}
+        	else {
+	        	// save in localStorage
+	        	var toStore = JSON.parse(localStorage.getItem('storedData'));
+	        	toStore[saveName] = {
+	        		budgets: budgetCollection.toJSON(),
+	        		cards: cardCollection.toJSON(),
+	        		transactions: transactionCollection.toJSON()
+	        	};
+	        	localStorage.setItem('storedData', JSON.stringify(toStore));
+
+	        	alert("Data saved.");
+
+				this.$el.find("#data_help").empty().append(_.template(datahelp_tmpl, {storedData: JSON.parse(localStorage.getItem('storedData'))}));
+        	}
+        },
+
+        loadDataState: function(e) {
+        	var loadName = $(e.currentTarget).attr('data-name');
+        	var storedData = JSON.parse(localStorage.getItem('storedData'))[loadName];
+
+        	// Load from localStorage
+        	console.log("loadData", $(e.currentTarget).attr('data-name'));
+        	if(loadName==="new user") {
+        		this.resetPrototype();
+        	}
+        	else if(loadName==="example data") {
+        		this.resetPrototype(budgets, cards, transactions);
+        	}
+        	else {
+        		this.resetPrototype(storedData.budgets, storedData.cards, storedData.transactions);        		
+        	}
+
+        	budgetCollection.trigger('change');
+        	cardCollection.trigger('change');
+        	transactionCollection.trigger('change');
         }
     });
 

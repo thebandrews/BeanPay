@@ -1,5 +1,11 @@
-<div data-action="save"></div>
+<div data-action="save">
+	<input name="data-name" type="text" placeholder="Name this save" />
+	<input name="data-save" type="button" value="Save" />
+</div>
 <div data-action="load">
-	<div data-name="blank"></div>
-	<div data-name="example"></div>
+	<div data-name="new user"></div>
+	<div data-name="example data"></div>
+	<% _.each(storedData, function(e,i) { %>
+		<div data-name="<%= i %>"></div>
+	<%}); %>
 </div>

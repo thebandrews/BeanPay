@@ -3,7 +3,8 @@ define(['underscore', 'backbone', 'cachedAjax', 'CardCollection'],
 
     return Backbone.Model.extend({
 
-        initialize: function() {}
+        initialize: function() {
+        }
 
     });
 });

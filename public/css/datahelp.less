@@ -9,7 +9,7 @@
 	> div {
 		position: absolute;
 		top: 90%;
-		min-height: 100px;
+		min-height: 170px;
 		margin: 0 0 0 -12.5%;
 		width: 25%;
 		background-color: white;
@@ -24,7 +24,7 @@
 	    pointer-events: auto;
 
 		&:hover {
-			top: 85%;
+			top: 66%;
 		}
 
 		&[data-action] {
@@ -37,10 +37,21 @@
 		}
 
 		&[data-action="save"] {
-			cursor: pointer;
 			left: 33%;
 			&:before {
 				content: "Save State";
+			}
+
+			input {
+				display: block;
+				width: 220px;
+				height: 30px;
+				margin: 0 auto 20px;
+				text-align: center;
+
+				&[type="button"] {
+					width: 100px
+				}
 			}
 		}
 
