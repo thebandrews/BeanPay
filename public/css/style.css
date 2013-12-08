@@ -16,6 +16,7 @@ body {
   width: 100%;
   min-width: 1280px;
   height: 100%;
+  position: relative;
 }
 .touch_view,
 .old_touch {
@@ -73,22 +74,36 @@ body {
   -webkit-transition: height 0.5s;
   background-color: #96C56F;
 }
+.budgets:before {
+  -webkit-transition: all 0.5s;
+  display: block;
+  width: 92%;
+  padding: 0 4%;
+  height: 16px;
+  font-size: 14px;
+  content: "Savings";
+}
 [data-view] .budgets {
   overflow: hidden;
   height: 0px;
 }
 [data-view="home"] .budgets {
-  height: 130px;
+  height: 143px;
 }
 [data-view="budgets"] .budgets {
   overflow-y: scroll;
   height: 517px;
 }
+[data-view="budgets"] .budgets:before {
+  padding: 12px 4% 0;
+  height: 30px;
+  font-size: 26px;
+}
 .budgetGraph {
   float: left;
   text-align: center;
   width: 106px;
-  margin-top: 10px;
+  margin-top: 13px;
   position: relative;
 }
 .budgetTitle {
@@ -106,36 +121,173 @@ body {
 	-webkit-text-stroke-color: black;
 */
 }
+.addPlus {
+  position: absolute;
+  top: -33px;
+  right: -1px;
+  z-index: 10;
+  font-size: 120px;
+  line-height: 120px;
+  color: #fff;
+}
+.addPlus:before,
+.addPlus:after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.addPlus:before {
+  top: 2px;
+  right: 2px;
+  color: #55aa55;
+  z-index: 1;
+  text-shadow: 2px 2px #fff;
+}
+.addPlus:after {
+  top: 4px;
+  right: 4px;
+  color: #fff;
+  text-shadow: 0px -4px #ffffff;
+}
 .cards {
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
-  background-color: #000;
+  background-color: #fff;
+  /*background-color: rgba(68, 136, 102, 0.9);*/
+
+}
+.cards:before {
+  -webkit-transition: height 0.5s, padding 0.5s;
+  display: block;
+  width: 92%;
+  padding: 0 4%;
+  height: 16px;
+  font-size: 14px;
+  overflow: hidden;
 }
 .cards .card {
+  position: relative;
+  width: 92%;
+  padding: 0 4%;
   height: 100px;
   overflow: hidden;
-  border-bottom: 1px solid #000;
-  background-color: rgba(68, 136, 102, 0.9);
-}
-.cards .card img {
-  width: 60px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  /*background-color: rgba(68, 136, 102, 0.9);*/
+
+  color: black;
 }
 .cards .card.current {
-  background-color: #4e9c70;
+  color: transparent;
+  /*background-color: rgba(78, 156, 112, 1);*/
+
+}
+.cards .card.current:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 50px;
+  width: 50px;
+  background-color: #090;
+  -webkit-mask-image: url(../images/icons/check2.png);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: 50px;
+  border-radius: 50px;
+  z-index: 2;
+}
+.cards .card.current:before {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  height: 30px;
+  width: 30px;
+  background-color: #000;
+  border-radius: 50px;
+  z-index: 1;
+}
+.cards .card.current .image {
+  opacity: 1;
+}
+.cards .card.addACard .name {
+  top: 32px;
+  left: 100px;
+  color: #000;
+}
+.cards .card :not(.image) {
+  z-index: 1;
+}
+.cards .card .name {
+  color: transparent;
+  position: absolute;
+  left: 7px;
+  top: 7px;
+  font-size: 30px;
+}
+.cards .card .number {
+  color: transparent;
+  position: absolute;
+  left: 7px;
+  top: 50px;
+}
+.cards .card .expires {
+  color: transparent;
+  position: absolute;
+  left: 7px;
+  top: 28px;
+}
+.cards .card .image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  opacity: 0.3;
+}
+.cards .card .processor_image {
+  position: absolute;
+  right: 7px;
+  bottom: 7px;
+  max-height: 42px;
+  max-width: 70px;
+  background: #fff;
+  padding: 10px;
+  border: 1px solid black;
 }
 [data-view] .cards {
   overflow: hidden;
   height: 0px;
 }
 [data-view="home"] .cards {
+  /*background-color: rgba(78, 156, 112, 1);*/
+
   height: 100px;
+}
+[data-view="home"] .cards:before {
+  height: 0;
+  content: "Active Card";
 }
 [data-view="cards"] .cards {
   -webkit-transition: height 0.5s;
   overflow-y: scroll;
   height: 517px;
 }
+[data-view="cards"] .cards:before {
+  content: "Cards";
+  padding: 7px 2% 12px;
+  height: 30px;
+  font-size: 30px;
+  border-bottom: 1px solid #000;
+}
+.addingCard #card {
+  right: -50%;
+}
+.addingCard.addCard #card {
+  display: none;
+}
 #card {
+  -webkit-transition: all 0.5s;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   position: absolute;
@@ -437,7 +589,70 @@ body {
   opacity: 0;
 }
 /* Based off of iPhone 5 in CSS via http://www.mattboldt.com/css3-iphone5/ */
+.addingCard #phone {
+  -webkit-transform: scale(1);
+  box-shadow: rgba(0, 0, 0, 0.25) 190px 366px 58px;
+}
+.addingCard #phone .content {
+  background-color: #fff;
+}
+.addingCard #phone .content:before {
+  content: "";
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0);
+  width: 349px;
+  height: 764px;
+  border-radius: 53px;
+  -webkit-transform: scale(1.21);
+  box-shadow: rgba(0, 0, 0, 0.35) -300px -300px 58px;
+  top: 656px;
+  left: 514px;
+  z-index: 1;
+}
+.addingCard #phone .content > * {
+  display: none;
+}
+.addingCard #phone .content #secretSelected {
+  position: absolute;
+  display: block;
+  top: 15%;
+}
+.addingCard #phone .content [data-card-id] {
+  position: absolute;
+  bottom: 0;
+  border-radius: 15px;
+  border: solid 2px #000;
+  height: 311px;
+  width: 490px;
+  background-color: #444;
+  color: #ccc;
+  box-shadow: rgba(0, 0, 0, 0.3) 3px 6px 5px;
+  background-size: 100%;
+  -webkit-transform: scale(0.85);
+}
+.addingCard #phone .content [data-card-id][data-card-id="generic"] {
+  background-color: #555;
+}
+.addingCard #phone .content [data-card-id][data-card-id="red"] {
+  background-color: #f00;
+  background-image: url(../images/RED.png);
+}
+.addingCard #phone .content [data-card-id][data-card-id="blue"] {
+  background-image: url(../images/BLUE.png);
+  background-size: 100%;
+}
+.addingCard #phone .content [data-card-id][data-card-id="black"] {
+  background-image: url(../images/BLACK.png);
+  background-color: #000;
+}
+.addingCard #phone #menu {
+  display: none;
+}
+.addingCard.addCard #phone {
+  -webkit-transition: none;
+}
 #phone {
+  -webkit-transition: all 1s;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   display: block;
@@ -459,6 +674,7 @@ body {
   background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8) 100%), -moz-linear-gradient(200deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.4) 35%, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0) 100%), -moz-linear-gradient(left, #000000 5%, rgba(0, 0, 0, 0) 5%, rgba(0, 0, 0, 0) 95%, #000000 95%), -moz-linear-gradient(top, #000000 13%, #264863 5%, #6b8ba7 50%, #082a43 85%, #000000 85%);
   background-image: linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8) 100%), linear-gradient(200deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.4) 35%, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0) 100%), linear-gradient(left, #000000 5%, rgba(0, 0, 0, 0) 5%, rgba(0, 0, 0, 0) 95%, #000000 95%), linear-gradient(top, #000000 13%, #264863 5%, #6b8ba7 50%, #082a43 85%, #000000 85%);
   box-shadow: rgba(0, 0, 0, 0.5) 9px 16px 28px;
+  z-index: 2;
 }
 #phone:before {
   content: "";
@@ -586,7 +802,7 @@ body {
   -webkit-mask-image: url(../images/icons/budget5.png);
 }
 #phone #menu li[data-view="budgets"]:after {
-  content: "Budgets";
+  content: "Savings";
 }
 #phone #menu li[data-view="cards"]:before {
   -webkit-mask-image: url(../images/icons/cards.png);
@@ -664,6 +880,12 @@ body {
 .transaction img {
   width: 60px;
 }
+.addingCard #task_help .credit_cards {
+  bottom: 50%;
+}
+.addingCard #task_help .purchases {
+  bottom: 80%;
+}
 #task_help {
   position: absolute;
   top: 0;
@@ -676,9 +898,6 @@ body {
   height: 100%;
   width: 100%;
   bottom: 120%;
-}
-#task_help .credit_cards.showing {
-  bottom: 50%;
 }
 #task_help .credit_cards .credit_card {
   position: absolute;
@@ -704,22 +923,28 @@ body {
   -webkit-transform: rotate(-60deg) scale(0.85);
   bottom: -80%;
 }
+#task_help .credit_cards .credit_card.selected {
+  -webkit-transform: scale(0.7);
+  bottom: -550%;
+  left: 50% !important;
+  z-index: 1;
+}
 #task_help .credit_cards .credit_card[data-card-id="generic"] {
   left: 0%;
   background-color: #555;
 }
 #task_help .credit_cards .credit_card[data-card-id="red"] {
-  left: 5%;
+  left: 12%;
   background-color: #f00;
   background-image: url(../images/RED.png);
 }
 #task_help .credit_cards .credit_card[data-card-id="blue"] {
-  left: 10%;
+  left: 24%;
   background-image: url(../images/BLUE.png);
   background-size: 100%;
 }
 #task_help .credit_cards .credit_card[data-card-id="black"] {
-  left: 15%;
+  left: 36%;
   background-image: url(../images/BLACK.png);
   background-color: #000;
 }
@@ -728,9 +953,6 @@ body {
   -webkit-transition: all 0.6s;
   height: 100%;
   width: 100%;
-  bottom: 110%;
-}
-#task_help .purchases.showing {
   bottom: 0;
 }
 #task_help .purchases .purchase {
@@ -754,15 +976,15 @@ body {
   bottom: -100%;
 }
 #task_help .purchases .purchase[data-merchant="upchuck_coffee"] {
-  right: 10%;
+  right: 25%;
   background-image: url(../images/COFFEE.png);
 }
 #task_help .purchases .purchase[data-merchant="bobs_burgers"] {
-  right: 20%;
+  right: 50%;
   background-image: url(../images/BURGERB.png);
 }
 #task_help .purchases .purchase[data-merchant="joes_tavern"] {
-  right: 30%;
+  right: 75%;
   background-image: url(../images/BEER.png);
   border-radius: 270px;
 }
@@ -770,7 +992,7 @@ body {
   bottom: -50%;
   border-radius: 0;
   height: 630px;
-  right: 0%;
+  right: 5%;
   background-image: url(../images/RECEIPT.png);
   background-color: #555;
   box-shadow: rgba(0, 0, 0, 0.3) 3px 6px 5px;
@@ -778,6 +1000,9 @@ body {
 #task_help .purchases .purchase[data-merchant="generic"]:hover {
   -webkit-transform: scale(0.85);
   bottom: -100%;
+}
+.addingCard #data_help {
+  bottom: -50%;
 }
 #data_help {
   position: absolute;

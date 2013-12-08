@@ -36,16 +36,9 @@ define([
         },
 
         selectCard: function (e) {
-        	if($(e.currentTarget).attr('data-id')==="add") {
-        		this.addCard();
-        	}
-        	else {
+        	if($(e.currentTarget).attr('data-id')!=="add") {
 	        	this.cardCollection.setElement(this.cardCollection.get($(e.currentTarget).attr('data-id')));
         	}
-        },
-
-        addCard: function () {
-        	console.log("adding card");
         },
 
         render: function () {
@@ -58,6 +51,7 @@ define([
                     id: 			card.get('id'),
                     type: 			card.get('type'),
                     number: 		card.get('number'),
+                    expires: 		card.get('expires'),
                     name: 			card.get('name'),
                     image: 			card.get('image')
                 });

@@ -1,5 +1,84 @@
 /* Based off of iPhone 5 in CSS via http://www.mattboldt.com/css3-iphone5/ */
+.addingCard {
+	#phone {
+		-webkit-transform: scale(1);
+		box-shadow: rgba(0, 0, 0, 0.25) 190px 366px 58px;
+
+		.content {
+			background-color: #fff;
+
+			&:before {
+				content: "";
+				position: absolute;
+				background-color: rgba(0, 0, 0, 0);
+				width: 349px;
+				height: 764px;
+				border-radius: 53px;
+				-webkit-transform: scale(1.21);
+				box-shadow: rgba(0, 0, 0, 0.28) -300px -300px 58px;
+				top: 656px;
+				left: 514px;
+				z-index: 1;
+			}
+		}
+
+		.content > * {
+			display: none;
+		}
+
+		.content #secretSelected {
+			position: absolute;
+			display: block;
+			top: 15%;
+		}
+
+		.content [data-card-id] {
+			position: absolute;
+			bottom: 0;
+			border-radius: 15px;
+			border: solid 2px #000;
+			height: 311px;
+			width: 490px;
+			background-color: #444;
+			color: #ccc;
+			box-shadow: rgba(0, 0, 0, 0.3) 3px 6px 5px;
+			background-size: 100%;
+			-webkit-transform: scale(0.85);
+
+			&[data-card-id="generic"] {
+				background-color: #555;
+			}
+
+			&[data-card-id="red"] {
+				background-color: #f00;
+				background-image: url(../images/RED.png);
+			}
+
+			&[data-card-id="blue"] {
+				background-image: url(../images/BLUE.png);
+				background-size: 100%;
+			}
+
+			&[data-card-id="black"] {
+				background-image: url(../images/BLACK.png);
+				background-color: #000;
+			}
+		}
+
+		#menu {
+			display: none;
+		}
+	}
+
+	&.addCard {
+		#phone {
+			-webkit-transition: none;
+		}		
+	}
+}
+
 #phone {
+	-webkit-transition: all 1s;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	display: block;
@@ -23,6 +102,7 @@
 	background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8) 100%), -moz-linear-gradient(200deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.4) 35%, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0) 100%), -moz-linear-gradient(left, black 5%, rgba(0, 0, 0, 0) 5%, rgba(0, 0, 0, 0) 95%, black 95%), -moz-linear-gradient(top, black 13%, #264863 5%, #6b8ba7 50%, #082a43 85%, black 85%);
 	background-image: linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8) 100%), linear-gradient(200deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.4) 35%, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0) 100%), linear-gradient(left, black 5%, rgba(0, 0, 0, 0) 5%, rgba(0, 0, 0, 0) 95%, black 95%), linear-gradient(top, black 13%, #264863 5%, #6b8ba7 50%, #082a43 85%, black 85%);
 	box-shadow: rgba(0, 0, 0, 0.5) 9px 16px 28px;
+	z-index: 2;
 
 	&:before {
 		content: "";
@@ -234,7 +314,7 @@
 					-webkit-mask-image: url(../images/icons/budget5.png);
 				}
 				&:after {
-					content: "Budgets";
+					content: "Savings";
 				}
 			}
 

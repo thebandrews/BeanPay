@@ -1,21 +1,121 @@
 .cards {
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
-	background-color: #000;
+	background-color: #fff;
+	/*background-color: rgba(68, 136, 102, 0.9);*/
+
+	&:before {
+		-webkit-transition: height 0.5s, padding 0.5s;
+		display: block;
+		width: 92%;
+		padding: 0 4%;
+		height: 16px;
+		font-size: 14px;
+		overflow: hidden;
+	}
 
 	.card {
+		position: relative;
+		width: 92%;
+		padding: 0 4%;
 		height: 100px;
 		overflow: hidden;
-		border-bottom: 1px solid #000;
-		background-color: rgba(68, 136, 102, 0.9);
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		/*background-color: rgba(68, 136, 102, 0.9);*/
 
-		img {
-			width: 60px;
-		}
+		color: black;
 
 		&.current {
-			background-color: rgba(78, 156, 112, 1);
+			color: transparent;
+
+			&:after {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				height: 50px;
+				width: 50px;
+				background-color: #090;
+				-webkit-mask-image: url(../images/icons/check2.png);
+				-webkit-mask-repeat: no-repeat;
+				-webkit-mask-position: center;
+				-webkit-mask-size: 50px;
+				border-radius: 50px;
+				z-index: 2;
+			}
+
+			&:before {
+				content: "";
+				position: absolute;
+				bottom: 10px;
+				left: 10px;
+				height: 30px;
+				width: 30px;
+				background-color: #000;
+				border-radius: 50px;
+				z-index: 1;
+			}
+
+			/*background-color: rgba(78, 156, 112, 1);*/
+
+			.image {
+				opacity: 1;
+			}
 		}
+
+		&.addACard {
+			.name {
+				top: 32px;
+				left: 100px;
+				color: #000;
+			}
+		}
+
+		:not(.image) {
+			z-index: 1;
+		}
+
+		.name {
+			color: transparent;
+			position: absolute;
+			left: 7px;
+			top: 7px;
+			font-size: 30px;
+		}
+
+		.number {
+			color: transparent;
+			position: absolute;
+			left: 7px;
+			top: 50px;
+		}
+
+		.expires {
+			color: transparent;
+			position: absolute;
+			left: 7px;
+			top: 28px;
+		}
+
+		.image {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			opacity: 0.3;
+		}
+
+		.processor_image {
+			position: absolute;
+			right: 7px;
+			bottom: 7px;
+			max-height: 42px;
+			max-width: 70px;
+			background: #fff;
+			padding: 10px;
+			border: 1px solid black;
+		}
+
 	}
 }
 
@@ -28,7 +128,13 @@
 
 [data-view="home"] {
 	.cards {
+		/*background-color: rgba(78, 156, 112, 1);*/
 		height: 100px;
+
+		&:before {
+			height: 0;
+			content: "Active Card";
+		}
 	}
 }
 
@@ -37,11 +143,33 @@
 		-webkit-transition: height 0.5s;
 		overflow-y: scroll;
 		height: 517px;
+
+		&:before {
+			content: "Cards";
+			padding: 7px 2% 12px;
+			height: 30px;
+			font-size: 30px;
+			border-bottom: 1px solid #000;
+		}
+	}
+}
+
+
+.addingCard {
+	#card {
+		right: -50%;
+	}
+
+	&.addCard {
+		#card {
+			display: none;
+		}		
 	}
 }
 
 
 #card {
+	-webkit-transition: all 0.5s;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	position: absolute;

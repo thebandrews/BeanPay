@@ -1,6 +1,16 @@
 .budgets {
 	-webkit-transition: height 0.5s;
 	background-color: #96C56F;
+
+	&:before {
+		-webkit-transition: all 0.5s;
+		display: block;
+		width: 92%;
+		padding: 0 4%;
+		height: 16px;
+		font-size: 14px;
+		content: "Savings";
+	}
 }
 
 [data-view] {
@@ -12,7 +22,7 @@
 
 [data-view="home"] {
 	.budgets {
-		height: 130px;
+		height: 143px;
 	}
 }
 
@@ -20,6 +30,12 @@
 	.budgets {
 		overflow-y: scroll;
 		height: 517px;
+	
+		&:before {
+			padding: 12px 4% 0;
+			height: 30px;
+			font-size: 26px;
+		}
 	}
 }
 
@@ -28,7 +44,7 @@
 	float: left;
 	text-align: center;
 	width: 106px;
-	margin-top: 10px;
+	margin-top: 13px;
 	position: relative;
 }
 
@@ -47,3 +63,35 @@
 	-webkit-text-stroke-width: 1px;
 	-webkit-text-stroke-color: black;
 */}
+
+.addPlus {
+	position: absolute;
+	top: -33px;
+	right: -1px;
+	z-index: 10;
+	font-size: 120px;
+	line-height: 120px;
+	color: #fff;
+
+	&:before, &:after {
+		content: attr(data-text);
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+
+	&:before {
+		top: 2px;
+		right: 2px;
+		color: #55aa55;
+		z-index: 1;
+		text-shadow: 2px 2px #fff;
+	}
+
+	&:after {
+		top: 4px;
+		right: 4px;
+		color: #fff;
+		text-shadow: 0px -4px #ffffff;
+	}
+}

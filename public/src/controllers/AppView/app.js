@@ -31,29 +31,32 @@ define([
     var cardCollection = new CardCollection(JSON.parse(localStorage.getItem('cards')) || cards);
     var transactionCollection = new TransactionCollection(JSON.parse(localStorage.getItem('transactions')) || transactions);
 
-    var wallet_cards = [
-	    {
+    var wallet_cards = {
+	    red: {
 	        name: "CapitalOne",
 	        type: "VISA",
 	        image: "redcard.jpg",
 	        number: "4000 1234 5678 9010",
+	        expires: "12/12",
 	        CVV: "383"
 	    },
-	    {
+	    black: {
 	        name: "Virgin",
 	        type: "MasterCard",
 	        image: "blackcard.jpg",
 	        number: "5412 3456 7890 1234",
+	        expires: "12/04",
 	        CVV: "049"
 	    },
-	    {
+	    blue: {
 	        name: "CapitalOne",
 	        type: "AmericanExpress",
 	        image: "bluecard.jpg",
 	        number: "0000 1234 5678 9010",
+	        expires: "10/15",
 	        CVV: "756"
 	    }
-    ];
+    };
 
     var $body = $(document.body);
     var touchTmpl = _.template(touch_tmpl);
@@ -62,6 +65,10 @@ define([
         budgetCollection = new BudgetCollection(budgets);
         cardCollection = new CardCollection(cards);
         transactionCollection = new TransactionCollection(transactions);
+    }
+
+    window.formatCardNumber = function (cardNumber) {
+    	return cardNumber; // "-"+cardNumber.substr(-4);
     }
 
     window.formatMoney = function (val, decimals) {
@@ -115,6 +122,8 @@ define([
 
             'click [data-action="save"] input[type="button"]': "saveDataState",
             'click [data-action="load"] [data-name]': "loadDataState",
+
+            'click .credit_cards .credit_card': "showCreditCard",
         },
 
         initialize: function () {
@@ -155,7 +164,7 @@ define([
         	var amount = parseInt($(e.currentTarget).attr('data-amount'),10);
         	var category = $(e.currentTarget).attr('data-category');
         	if(type==="generic") {
-
+        		// TODO: make a form for generic purchases
         	}
         	else {
 	        	transactionCollection.add({
@@ -172,7 +181,43 @@ define([
         },
 
         addCard: function(e) {
-        	var type = $(e.currentTarget).attr('data-merchant');
+        	this.$el.addClass("addingCard");
+
+        	this.$el.one("webkitTransitionEnd", _.bind(function () {
+        		this.$el.addClass("addCard");
+        	}, this));
+        },
+
+        showCreditCard: function (e) {
+        	var card = $(e.currentTarget).attr('data-card-id');
+        	var $df = $.Deferred();
+
+        	if(card==="generic" || !wallet_cards[card]) {
+        		// TODO: make a form for generic cards.. When the form is submitted, resolve the promise
+        	}
+        	else {
+        		card = wallet_cards[card];
+        		$df.resolve();
+        	}
+
+        	$df.done(_.bind(function () {
+        		var $df2 = $.Deferred();
+        		var lastMouseXPos;
+
+	        	$(e.currentTarget).addClass('selected').removeClass('sideways');
+	        	$(e.currentTarget).clone().attr('id','secretSelected').appendTo(this.$el.find(".content"));
+
+        		var $ss = $("#secretSelected").css('marginLeft',this.$el.width()*0.75 + "px");
+
+	        	this.$el.on('mousemove', _.bind(function (e) {
+        		var $ss = $("#secretSelected").css('marginLeft', ($(".selected").position().left + 121)  + "px");
+					$("#phone")[0].style.left = e.pageX + "px";
+					$ss[0].style.left = "-" + e.pageX + "px";
+					if(Math.abs(e.pageX-parseInt($(".credit_cards .credit_card.selected").css('left'),10) < 5)) {
+						// Revert eveything and add the card
+					}
+	        	}, this));
+        	}, this));
         },
 
         saveDataState: function(e) {
