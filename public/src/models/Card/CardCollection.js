@@ -1,4 +1,11 @@
 define(['underscore', 'backbone', 'models/Card/CardModel'], function(_, Backbone, CardModel) {
+	var getNextID = function() {
+		if(!window.nextID) {
+			window.nextID = 1;
+		}
+		return window.nextID++;
+	};
+
     var Collection = Backbone.Collection.extend({
         model: CardModel,
         initialize:function (){
@@ -14,6 +21,7 @@ define(['underscore', 'backbone', 'models/Card/CardModel'], function(_, Backbone
         getElement: function() {
             if(!this.currentElement) {
 	            this.init();
+	        	this.currentElement && this.trigger('cardSelected');
             }
             return this.currentElement;
         },
@@ -32,6 +40,12 @@ define(['underscore', 'backbone', 'models/Card/CardModel'], function(_, Backbone
         	}
             this.setElement(this.at(index));
             return this;
+        },
+        add: function(obj) {
+        	if(!obj.id) {
+        		obj.id = getNextID();
+        	}
+        	Backbone.Collection.prototype.add.call(this, obj);
         }
     });
     return Collection;

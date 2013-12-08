@@ -3,6 +3,7 @@ define([
     'backbone',
     'jquery',
     'text!controllers/PhoneView/tmpl.html',
+    'text!controllers/PhoneView/addCardTmpl.html',
     'text!controllers/PhoneView/menu.html',
     'BudgetsView',
     'BudgetView',
@@ -10,7 +11,7 @@ define([
     'SearchView',
     'TransactionsView',
     'TransactionView'
-], function(_, Backbone, $, tmpl, menuTmpl, BudgetsView, BudgetView, CardsView, SearchView, TransactionsView, TransactionView) {
+], function(_, Backbone, $, tmpl, addCardTmpl, menuTmpl, BudgetsView, BudgetView, CardsView, SearchView, TransactionsView, TransactionView) {
 
     return Backbone.View.extend({
 
@@ -59,6 +60,14 @@ define([
 
         setCard: function(card) {
             this.current_card = card && card.get('id');
+        },
+
+        addingCard: function() {
+        	this.$content.append(_.template(addCardTmpl, {}));
+        },
+
+        cardAdded: function() {
+        	this.$content.find(".phoneAddingCard").remove();
         }
     });
 });

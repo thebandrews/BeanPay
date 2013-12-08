@@ -275,7 +275,7 @@ body {
 }
 [data-view="cards"] .cards:before {
   content: "Cards";
-  padding: 7px 2% 12px;
+  padding: 7px 4% 12px;
   height: 30px;
   font-size: 30px;
   border-bottom: 1px solid #000;
@@ -589,12 +589,97 @@ body {
   opacity: 0;
 }
 /* Based off of iPhone 5 in CSS via http://www.mattboldt.com/css3-iphone5/ */
+@-webkit-keyframes expand {
+  from {
+    width: 0px;
+  }
+  to {
+    width: 284px;
+  }
+}
 .addingCard #phone {
   -webkit-transform: scale(1);
   box-shadow: rgba(0, 0, 0, 0.25) 190px 366px 58px;
 }
 .addingCard #phone .content {
   background-color: #fff;
+}
+.addingCard #phone .content .phoneAddingCard {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: transparent;
+  display: block;
+  text-align: center;
+  z-index: 2;
+  font-size: 40px;
+}
+.addingCard #phone .content .phoneAddingCard .directions,
+.addingCard #phone .content .phoneAddingCard .overlay_bottom {
+  position: absolute;
+  width: 100%;
+  background: rgba(191, 191, 191, 0.7);
+}
+.addingCard #phone .content .phoneAddingCard .directions {
+  border-bottom: 2px solid #333;
+  top: 0;
+  height: 280px;
+  padding: 80px 30px 0;
+  box-sizing: border-box;
+}
+.addingCard #phone .content .phoneAddingCard .directions.startTimer:before,
+.addingCard #phone .content .phoneAddingCard .directions.startTimer:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 180px;
+  left: 16px;
+  background-color: transparent;
+  height: 33px;
+  width: 284px;
+}
+.addingCard #phone .content .phoneAddingCard .directions.startTimer:before {
+  border: 2px solid #329632;
+}
+.addingCard #phone .content .phoneAddingCard .directions.startTimer:after {
+  width: 0px;
+  height: 35px;
+  background-color: #329632;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-name: expand;
+}
+.addingCard #phone .content .phoneAddingCard .directions.threeSeconds:before,
+.addingCard #phone .content .phoneAddingCard .directions.threeSeconds:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 180px;
+  left: 16px;
+  background-color: transparent;
+  height: 33px;
+  width: 284px;
+}
+.addingCard #phone .content .phoneAddingCard .directions.threeSeconds:before {
+  border: 2px solid #329632;
+}
+.addingCard #phone .content .phoneAddingCard .directions.threeSeconds:after {
+  width: 0px;
+  height: 35px;
+  background-color: #329632;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-name: expand;
+}
+.addingCard #phone .content .phoneAddingCard .directions.gotIt {
+  background: rgba(200, 255, 200, 0.7);
+}
+.addingCard #phone .content .phoneAddingCard .overlay_bottom {
+  border-top: 2px solid #333;
+  bottom: 0;
+  height: 60px;
 }
 .addingCard #phone .content:before {
   content: "";
@@ -603,8 +688,7 @@ body {
   width: 349px;
   height: 764px;
   border-radius: 53px;
-  -webkit-transform: scale(1.21);
-  box-shadow: rgba(0, 0, 0, 0.35) -300px -300px 58px;
+  box-shadow: rgba(0, 0, 0, 0.28) -370px -307px 58px;
   top: 656px;
   left: 514px;
   z-index: 1;
@@ -615,20 +699,19 @@ body {
 .addingCard #phone .content #secretSelected {
   position: absolute;
   display: block;
-  top: 15%;
+  margin-top: 240%;
 }
 .addingCard #phone .content [data-card-id] {
   position: absolute;
   bottom: 0;
-  border-radius: 15px;
-  border: solid 2px #000;
-  height: 311px;
-  width: 490px;
+  border-radius: 10px;
+  border: solid 1px #000;
+  height: 187px;
+  width: 294px;
   background-color: #444;
   color: #ccc;
   box-shadow: rgba(0, 0, 0, 0.3) 3px 6px 5px;
   background-size: 100%;
-  -webkit-transform: scale(0.85);
 }
 .addingCard #phone .content [data-card-id][data-card-id="generic"] {
   background-color: #555;
@@ -924,8 +1007,8 @@ body {
   bottom: -80%;
 }
 #task_help .credit_cards .credit_card.selected {
-  -webkit-transform: scale(0.7);
-  bottom: -550%;
+  -webkit-transform: scale(0.75);
+  bottom: -540%;
   left: 50% !important;
   z-index: 1;
 }

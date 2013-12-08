@@ -185,7 +185,13 @@ define([
 
         	this.$el.one("webkitTransitionEnd", _.bind(function () {
         		this.$el.addClass("addCard");
+        		this.phoneView.addingCard();
         	}, this));
+        },
+
+        cardAdded: function(e) {
+        	this.$el.removeClass("addingCard");
+    		this.phoneView.cardAdded();
         },
 
         showCreditCard: function (e) {
@@ -204,19 +210,64 @@ define([
         		var $df2 = $.Deferred();
         		var lastMouseXPos;
 
-	        	$(e.currentTarget).addClass('selected').removeClass('sideways');
-	        	$(e.currentTarget).clone().attr('id','secretSelected').appendTo(this.$el.find(".content"));
+        		var $e = $(e.currentTarget);
+
+	        	$e.addClass('selected').removeClass('sideways');
+	        	$e.clone().attr('id','secretSelected').appendTo(this.$el.find(".content"));
 
         		var $ss = $("#secretSelected").css('marginLeft',this.$el.width()*0.75 + "px");
+        		var cardTimer = null;
+        		var $dir = $(".directions");
+        		var $ob = $(".overlay_bottom");
+        		var $content = $(".content");
 
-	        	this.$el.on('mousemove', _.bind(function (e) {
-        		var $ss = $("#secretSelected").css('marginLeft', ($(".selected").position().left + 121)  + "px");
+        		var allowMove = true;
+
+        		var moveCardView = _.bind(function (e) {
+
+					$("#phone")[0].style.top = e.pageY + "px";
 					$("#phone")[0].style.left = e.pageX + "px";
-					$ss[0].style.left = "-" + e.pageX + "px";
-					if(Math.abs(e.pageX-parseInt($(".credit_cards .credit_card.selected").css('left'),10) < 5)) {
-						// Revert eveything and add the card
-					}
-	        	}, this));
+        			if(allowMove) {
+	        			$ss.css('marginLeft', ($(".selected").position().left + 121)  + "px");
+						$ss[0].style.top = "-" + e.pageY + "px";
+						$ss[0].style.left = "-" + e.pageX + "px";        				
+
+						var ss_pos = $ss.offset();
+						ss_pos.right = ss_pos.left + $ss.width();
+						ss_pos.bottom = ss_pos.top + $ss.height();
+						
+						var left = $content.offset().left;
+						var right = left + $content.width();
+						var top = $dir.offset().top + $dir.height();
+						var bottom = $ob.offset().top;
+
+						if(ss_pos.left > left && ss_pos.right < right && ss_pos.top > top && ss_pos.bottom < bottom) {
+							if(!cardTimer) {
+								$dir.addClass("startTimer");
+								cardTimer = setTimeout(_.bind(function () {
+									allowMove = false;
+									$dir.replaceWith('<div class="directions threeSeconds">Processing...</div>');
+									$e.removeClass('selected').addClass('sideways');
+									setTimeout(_.bind(function () {
+										cardCollection.add(card);
+										cardCollection.getElement();
+										$("#secretSelected").remove();
+										this.$el.off('mousemove', moveCardView);
+										this.cardAdded();
+										$("#phone").css({top:"",left:""});
+									}, this), 3000)
+								}, this), 1000);
+							}
+						}
+						else {
+							$dir.removeClass("startTimer");
+							clearTimeout(cardTimer);
+							cardTimer = null;
+						}
+        			}
+	        	}, this);
+
+	        	this.$el.on('mousemove', moveCardView);
         	}, this));
         },
 

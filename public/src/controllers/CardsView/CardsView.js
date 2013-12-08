@@ -16,6 +16,7 @@ define([
         initialize: function (info) {
             this.cardCollection = info.cardCollection;
 
+            this.cardCollection.on("add", _.bind(this.render, this));
             this.cardCollection.on("cardSelected", _.bind(this.cardSelected, this));
 
             this.$el.addClass('cards').attr("data-switch-view","cards");
@@ -43,8 +44,6 @@ define([
 
         render: function () {
             var cards = [];
-            var currentCardID = this.cardCollection.getElement();
-            currentCardID = currentCardID && currentCardID.get('id');
 
             this.cardCollection.each(_.bind(function (card) {
                 cards.push({
