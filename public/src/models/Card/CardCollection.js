@@ -1,14 +1,26 @@
 define(['underscore', 'backbone', 'models/Card/CardModel'], function(_, Backbone, CardModel) {
 	var getNextID = function() {
-		if(!window.nextID) {
-			window.nextID = 1;
+		if(!window.nextCardID) {
+			window.nextCardID = 1;
 		}
-		return window.nextID++;
+		return window.nextCardID++;
 	};
 
     var Collection = Backbone.Collection.extend({
         model: CardModel,
-        initialize:function (){
+        initialize:function (data) {
+        	var max = 0;
+        	data.forEach(function (e) {
+        		max = Math.max(max, parseInt(e.id, 10));
+        	});
+        	window.nextCardID = max + 1;
+
+        	data.forEach(function (e,i) {
+        		if(!e.id) {
+        			data[i].id = getNextID();
+        		}
+        	});
+
             this.init();
             this.bind('reset', this.init, this);
         },

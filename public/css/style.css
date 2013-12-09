@@ -10,7 +10,7 @@ body {
   min-width: 1080px;
   min-height: 980px;
   background-color: #f3f3f3;
-  font-family: "Gill Sans", Verdana, Arial, sans-serif;
+  font-family: "Helvetica Neue", "Gill Sans", Verdana, Arial, sans-serif;
 }
 #app {
   width: 100%;
@@ -72,32 +72,18 @@ body {
 }
 .budgets {
   -webkit-transition: height 0.5s;
-  background-color: #96C56F;
-}
-.budgets:before {
-  -webkit-transition: all 0.5s;
-  display: block;
-  width: 92%;
-  padding: 0 4%;
-  height: 16px;
-  font-size: 14px;
-  content: "Savings";
+  background-color: #efe;
 }
 [data-view] .budgets {
   overflow: hidden;
   height: 0px;
 }
 [data-view="home"] .budgets {
-  height: 143px;
+  height: 125px;
 }
 [data-view="budgets"] .budgets {
   overflow-y: scroll;
   height: 517px;
-}
-[data-view="budgets"] .budgets:before {
-  padding: 12px 4% 0;
-  height: 30px;
-  font-size: 26px;
 }
 .budgetGraph {
   float: left;
@@ -123,15 +109,17 @@ body {
 }
 .addPlus {
   position: absolute;
-  top: -33px;
+  top: -48px;
   right: -1px;
   z-index: 10;
-  font-size: 120px;
+  font-size: 130px;
   line-height: 120px;
-  color: #fff;
+  color: #393;
+  font-weight: bold;
 }
 .addPlus:before,
 .addPlus:after {
+  display: none;
   content: attr(data-text);
   position: absolute;
   top: 0;
@@ -150,29 +138,27 @@ body {
   color: #fff;
   text-shadow: 0px -4px #ffffff;
 }
+[data-view="home"] .cards .card.current:after {
+  opacity: 0;
+}
+[data-view="home"] .cards .card.current:before {
+  opacity: 0;
+}
 .cards {
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
-  background-color: #fff;
+  background-color: #efe;
   /*background-color: rgba(68, 136, 102, 0.9);*/
 
-}
-.cards:before {
-  -webkit-transition: height 0.5s, padding 0.5s;
-  display: block;
-  width: 92%;
-  padding: 0 4%;
-  height: 16px;
-  font-size: 14px;
-  overflow: hidden;
 }
 .cards .card {
   position: relative;
   width: 92%;
   padding: 0 4%;
-  height: 100px;
+  height: 95px;
   overflow: hidden;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
   /*background-color: rgba(68, 136, 102, 0.9);*/
 
   color: black;
@@ -183,33 +169,40 @@ body {
 
 }
 .cards .card.current:after {
+  opacity: 1;
   content: "";
   position: absolute;
-  bottom: 0;
-  left: 0;
+  top: 50%;
+  right: 0;
   height: 50px;
   width: 50px;
-  background-color: #090;
+  background-color: #393;
   -webkit-mask-image: url(../images/icons/check2.png);
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   -webkit-mask-size: 50px;
   border-radius: 50px;
   z-index: 2;
+  margin-top: -25px;
 }
 .cards .card.current:before {
+  opacity: 1;
   content: "";
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  top: 50%;
+  right: 10px;
   height: 30px;
   width: 30px;
-  background-color: #000;
+  background-color: #222;
   border-radius: 50px;
   z-index: 1;
+  margin-top: -15px;
 }
 .cards .card.current .image {
-  opacity: 1;
+  opacity: 0.88;
+}
+.cards .card.addACard {
+  background-color: #eee;
 }
 .cards .card.addACard .name {
   top: 32px;
@@ -247,10 +240,10 @@ body {
 }
 .cards .card .processor_image {
   position: absolute;
-  right: 7px;
-  bottom: 7px;
-  max-height: 42px;
-  max-width: 70px;
+  left: 7px;
+  top: 7px;
+  max-height: 36px;
+  max-width: 59px;
   background: #fff;
   padding: 10px;
   border: 1px solid black;
@@ -262,23 +255,12 @@ body {
 [data-view="home"] .cards {
   /*background-color: rgba(78, 156, 112, 1);*/
 
-  height: 100px;
-}
-[data-view="home"] .cards:before {
-  height: 0;
-  content: "Active Card";
+  height: 71px;
 }
 [data-view="cards"] .cards {
   -webkit-transition: height 0.5s;
   overflow-y: scroll;
   height: 517px;
-}
-[data-view="cards"] .cards:before {
-  content: "Cards";
-  padding: 7px 4% 12px;
-  height: 30px;
-  font-size: 30px;
-  border-bottom: 1px solid #000;
 }
 .addingCard #card {
   right: -50%;
@@ -466,7 +448,6 @@ body {
   box-sizing: border-box;
   padding: 16px;
   font-size: 36px;
-  font-family: "Gill Sans", "Verdana", "Arial", sans-serif;
   width: 100%;
   vertical-align: bottom;
 }
@@ -945,23 +926,146 @@ body {
   height: 0px;
 }
 [data-view="home"] .transactions {
-  height: 285px;
+  height: 319px;
 }
 [data-view="search"] .transactions,
 [data-view="transactions"] .transactions {
   overflow-y: scroll;
   height: 517px;
 }
+.viewing_transaction .transaction {
+  height: 0;
+  padding: 0;
+}
 .transaction {
-  background-color: #151;
-  height: 90px;
+  position: relative;
+  background-color: #efe;
+  color: #000;
+  height: 107px;
   border-bottom: 1px solid #000;
   padding: 5px;
   overflow: hidden;
   font-size: 12px;
+  box-sizing: border-box;
+  -webkit-transition: all 0.5s;
 }
-.transaction img {
-  width: 60px;
+.transaction.view {
+  height: 100%;
+}
+.transaction.view .card_image {
+  bottom: 422px;
+}
+.transaction.view .date {
+  bottom: 422px;
+}
+.transaction.view .budget_select {
+  display: block;
+  top: 100px;
+  font-size: 27px;
+  width: 100%;
+  border-top: 1px solid #000;
+  overflow-y: scroll;
+}
+.transaction.view .budget_select div {
+  padding: 15px 7px;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+}
+.transaction.view .budget_select .selected {
+  /*background-color: rgba(78, 156, 112, 1);*/
+
+}
+.transaction.view .budget_select .selected:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  height: 50px;
+  margin-top: -25px;
+  width: 50px;
+  background-color: #393;
+  -webkit-mask-image: url(../images/icons/check2.png);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: 50px;
+  border-radius: 50px;
+  z-index: 2;
+}
+.transaction.view .budget_select .selected:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  height: 30px;
+  margin-top: -15px;
+  width: 30px;
+  background-color: #222;
+  border-radius: 50px;
+  z-index: 1;
+}
+.transaction.view .budget_select .selected .image {
+  opacity: 1;
+}
+.transaction.view .budget_name {
+  display: none;
+}
+.transaction > * {
+  display: block;
+  position: absolute;
+}
+.transaction :not(.card_image) {
+  z-index: 1;
+}
+.transaction .budget_select {
+  display: none;
+}
+.transaction .budget_name {
+  top: 35px;
+  left: 9px;
+  font-size: 16px;
+}
+.transaction .merchant {
+  top: 5px;
+  left: 9px;
+  font-size: 25px;
+}
+.transaction .amount {
+  top: 12px;
+  right: 7px;
+  font-size: 55px;
+  vertical-align: top;
+  height: 48px;
+  line-height: 37px;
+  color: #393;
+}
+.transaction .amount:before {
+  content: "$";
+  font-size: 20px;
+  top: -9px;
+  position: absolute;
+  left: -21px;
+  vertical-align: top;
+  display: block;
+  height: 33px;
+  width: 20px;
+  overflow: hidden;
+  text-align: right;
+}
+.transaction .card_number {
+  display: none;
+}
+.transaction .card_image {
+  bottom: 9px;
+  left: 9px;
+  max-width: 52px;
+  opacity: 0.88;
+  border-radius: 5px;
+  border: 1px solid #000;
+}
+.transaction .date {
+  bottom: 9px;
+  right: 9px;
+  font-size: 15px;
 }
 .addingCard #task_help .credit_cards {
   bottom: 50%;

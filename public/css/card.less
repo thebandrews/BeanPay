@@ -1,26 +1,27 @@
+[data-view="home"] .cards .card.current {
+	&:after {
+		opacity: 0;
+	}
+
+	&:before {
+		opacity: 0;
+	}
+}
+
 .cards {
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
-	background-color: #fff;
+	background-color: #efe;
 	/*background-color: rgba(68, 136, 102, 0.9);*/
-
-	&:before {
-		-webkit-transition: height 0.5s, padding 0.5s;
-		display: block;
-		width: 92%;
-		padding: 0 4%;
-		height: 16px;
-		font-size: 14px;
-		overflow: hidden;
-	}
 
 	.card {
 		position: relative;
 		width: 92%;
 		padding: 0 4%;
-		height: 100px;
+		height: 95px;
 		overflow: hidden;
 		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		background-color: #fff;
 		/*background-color: rgba(68, 136, 102, 0.9);*/
 
 		color: black;
@@ -29,41 +30,46 @@
 			color: transparent;
 
 			&:after {
+				opacity: 1;
 				content: "";
 				position: absolute;
-				bottom: 0;
-				left: 0;
+				top: 50%;
+				right: 0;
 				height: 50px;
 				width: 50px;
-				background-color: #090;
+				background-color: #393;
 				-webkit-mask-image: url(../images/icons/check2.png);
 				-webkit-mask-repeat: no-repeat;
 				-webkit-mask-position: center;
 				-webkit-mask-size: 50px;
 				border-radius: 50px;
 				z-index: 2;
+				margin-top: -25px;
 			}
 
 			&:before {
+				opacity: 1;
 				content: "";
 				position: absolute;
-				bottom: 10px;
-				left: 10px;
+				top: 50%;
+				right: 10px;
 				height: 30px;
 				width: 30px;
-				background-color: #000;
+				background-color: #222;
 				border-radius: 50px;
 				z-index: 1;
+				margin-top: -15px;
 			}
 
 			/*background-color: rgba(78, 156, 112, 1);*/
 
 			.image {
-				opacity: 1;
+				opacity: 0.88;
 			}
 		}
 
 		&.addACard {
+			background-color: #eee;
 			.name {
 				top: 32px;
 				left: 100px;
@@ -107,10 +113,10 @@
 
 		.processor_image {
 			position: absolute;
-			right: 7px;
-			bottom: 7px;
-			max-height: 42px;
-			max-width: 70px;
+			left: 7px;
+			top: 7px;
+			max-height: 36px;
+			max-width: 59px;
 			background: #fff;
 			padding: 10px;
 			border: 1px solid black;
@@ -129,12 +135,7 @@
 [data-view="home"] {
 	.cards {
 		/*background-color: rgba(78, 156, 112, 1);*/
-		height: 100px;
-
-		&:before {
-			height: 0;
-			content: "Active Card";
-		}
+		height: 71px;
 	}
 }
 
@@ -143,14 +144,6 @@
 		-webkit-transition: height 0.5s;
 		overflow-y: scroll;
 		height: 517px;
-
-		&:before {
-			content: "Cards";
-			padding: 7px 4% 12px;
-			height: 30px;
-			font-size: 30px;
-			border-bottom: 1px solid #000;
-		}
 	}
 }
 
@@ -375,7 +368,6 @@
 			box-sizing: border-box;
 			padding: 16px;
 			font-size: 36px;
-			font-family: "Gill Sans", "Verdana", "Arial", sans-serif;
 			width: 100%;
 			vertical-align: bottom;
 

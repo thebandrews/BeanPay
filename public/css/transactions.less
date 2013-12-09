@@ -12,7 +12,7 @@
 
 [data-view="home"] {
 	.transactions {
-		height: 285px;
+		height: 319px;
 	}
 }
 
@@ -23,15 +23,157 @@
 	}
 }
 
+.viewing_transaction .transaction {
+	height: 0;
+	padding: 0;
+}
+
 .transaction {
-	background-color: #151;
-	height: 90px;
+	position: relative;
+	background-color: #efe;
+	color: #000;
+	height: 107px;
 	border-bottom: 1px solid #000;
 	padding: 5px;
 	overflow: hidden;
 	font-size: 12px;
+	box-sizing: border-box;
+	-webkit-transition: all 0.5s;
 
-	img {
-		width: 60px;
+	&.view {
+		height: 100%;
+
+		.card_image {
+			bottom: 422px;
+		}
+
+		.date {
+			bottom: 422px;
+		}
+
+		.budget_select {
+			display: block;
+			top: 100px;
+			font-size: 27px;
+			width: 100%;
+			border-top: 1px solid #000;
+			overflow-y: scroll;
+
+			div {
+				padding: 15px 7px;
+				border-bottom: 1px solid #ccc;
+				position: relative;
+			}
+
+			.selected {
+				&:after {
+					content: "";
+					position: absolute;
+					top: 50%;
+					right: 0;
+					height: 50px;
+					margin-top: -25px;
+					width: 50px;
+					background-color: #393;
+					-webkit-mask-image: url(../images/icons/check2.png);
+					-webkit-mask-repeat: no-repeat;
+					-webkit-mask-position: center;
+					-webkit-mask-size: 50px;
+					border-radius: 50px;
+					z-index: 2;
+				}
+
+				&:before {
+					content: "";
+					position: absolute;
+					top: 50%;
+					right: 10px;
+					height: 30px;
+					margin-top: -15px;
+					width: 30px;
+					background-color: #222;
+					border-radius: 50px;
+					z-index: 1;
+				}
+
+				/*background-color: rgba(78, 156, 112, 1);*/
+
+				.image {
+					opacity: 1;
+				}
+			}
+		}
+
+		.budget_name {
+			display: none;
+		}
+	}
+
+	> * {
+		display: block;
+		position: absolute;
+	}
+
+	:not(.card_image) {
+		z-index: 1;
+	}
+
+	.budget_select {
+		display: none;
+	}
+
+	.budget_name {
+		top: 35px;
+		left: 9px;
+		font-size: 16px;
+	}
+
+	.merchant {
+		top: 5px;
+		left: 9px;
+		font-size: 25px;
+	}
+
+	.amount {
+		top: 12px;
+		right: 7px;
+		font-size: 55px;
+		vertical-align: top;
+		height: 48px;
+		line-height: 37px;
+		color: #393;
+
+		&:before {
+			content: "$";
+			font-size: 20px;
+			top: -9px;
+			position: absolute;
+			left: -21px;
+			vertical-align: top;
+			display: block;
+			height: 33px;
+			width: 20px;
+			overflow: hidden;
+			text-align: right;
+		}
+	}
+
+	.card_number {
+		display: none;
+	}
+
+	.card_image {
+		bottom: 9px;
+		left: 9px;
+		max-width: 52px;
+		opacity: 0.88;
+		border-radius: 5px;
+		border: 1px solid #000;
+	}
+
+	.date {
+		bottom: 9px;
+		right: 9px;
+		font-size: 15px;
 	}
 }

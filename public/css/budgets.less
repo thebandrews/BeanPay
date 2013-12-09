@@ -1,16 +1,6 @@
 .budgets {
 	-webkit-transition: height 0.5s;
-	background-color: #96C56F;
-
-	&:before {
-		-webkit-transition: all 0.5s;
-		display: block;
-		width: 92%;
-		padding: 0 4%;
-		height: 16px;
-		font-size: 14px;
-		content: "Savings";
-	}
+	background-color: #efe;
 }
 
 [data-view] {
@@ -22,7 +12,7 @@
 
 [data-view="home"] {
 	.budgets {
-		height: 143px;
+		height: 125px;
 	}
 }
 
@@ -30,12 +20,6 @@
 	.budgets {
 		overflow-y: scroll;
 		height: 517px;
-	
-		&:before {
-			padding: 12px 4% 0;
-			height: 30px;
-			font-size: 26px;
-		}
 	}
 }
 
@@ -66,14 +50,16 @@
 
 .addPlus {
 	position: absolute;
-	top: -33px;
+	top: -48px;
 	right: -1px;
 	z-index: 10;
-	font-size: 120px;
+	font-size: 130px;
 	line-height: 120px;
-	color: #fff;
+	color: #393;
+	font-weight: bold;
 
 	&:before, &:after {
+		display: none;
 		content: attr(data-text);
 		position: absolute;
 		top: 0;

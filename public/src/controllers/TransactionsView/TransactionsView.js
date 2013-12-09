@@ -10,7 +10,8 @@ define([
 
     return Backbone.View.extend({
         events: {
-            "click .transaction": "transactionSelect"
+            "click .transaction": "transactionSelect",
+            "click .budget_select div": "budgetCategorySelect"
         },
 
         initialize: function (info) {
@@ -19,13 +20,33 @@ define([
             this.cardCollection = info.cardCollection;
             this.render();
 
-            this.$el.addClass("transactions").attr("data-switch-view","search");
+            this.$el.addClass("transactions").attr("data-switch-view","transactions");
 
             this.transactionCollection.on('add', _.bind(this.render, this));
+
+            var cycleTime = function () {
+            	clearTimeout(window.cycleTimer);
+            	$("[data-date]").each(function (i,e) {
+            		var $e  = $(e);
+            		$e.text((new Date($e.attr('data-date'))).formatAgo());
+            	});
+            	window.cycleTimer = setTimeout(cycleTime, 60000);
+            };
+
+            cycleTime();
         },
 
         transactionSelect: function (e) {
-            console.log(e);
+        	this.$el.addClass("viewing_transaction");
+            $(e.currentTarget).addClass("view");
+        },
+
+        budgetCategorySelect: function (e) {
+        	var $e = $(e.currentTarget);
+        	var $v = $e.closest(".view");
+        	$v.find(".selected").removeClass("selected");
+        	$e.addClass("selected");
+        	this.transactionCollection.get($v.attr('data-id')).set('budget_id',$e.attr('data-id'));
         },
 
         render: function () {
@@ -35,11 +56,12 @@ define([
                 var budget_id = transaction.get('budget_id');
                 var card_id = transaction.get('card_id');
                 transactions.push({
+                	id: 			transaction.get('id'), 
                     merchant: 		transaction.get('merchant'),
                     date: 			new Date(transaction.get('date')),
                     amount: 		parseFloat(transaction.get('amount'), 10),
                     budget_id: 		transaction.get('budget_id'), 
-                    budget_name: 	this.budgetCollection.get(budget_id).get('name'),
+                    budget_name: 	this.budgetCollection.get(budget_id) ? this.budgetCollection.get(budget_id).get('name') : "",
                     card_image: 	this.cardCollection.get(card_id).get('image'),
                     card_number: 	this.cardCollection.get(card_id).get('number')
                 });
@@ -54,7 +76,7 @@ define([
                 });
             });
 
-            this.$el.empty().append(_.template(tmpl, { budgets: budgets, transactions: transactions }));
+            this.$el.empty().append(_.template(tmpl, { budgets: budgets.sort(function (a,b){return a.name > b.name;}), transactions: transactions }));
         }
     });
 });

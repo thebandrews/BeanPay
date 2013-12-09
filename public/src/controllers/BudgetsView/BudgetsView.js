@@ -48,7 +48,7 @@ define([
                 var html = _.template(budgetGraphTmpl, { name: budget.get('name'), remaining: remaining });
                 var $html = $(html);
 
-                $html.find(".budgetPie").append(createPie("pie", "80px", "white", [Math.min(100, spentPercent), Math.max(0, 100 - spentPercent)], ["#222222", "#55aa55"]));
+                $html.find(".budgetPie").append(createPie("pie", "80px", "white", [Math.min(100, spentPercent), Math.max(0, 100 - spentPercent)], ["#222222", "#339933"]));
                 this.$el.find(".addABudget").before($html);
             }, this));
         }

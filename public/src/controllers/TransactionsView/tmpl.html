@@ -1,10 +1,15 @@
 <% _.each(transactions, function(transaction) { %>
-    <div class="transaction">
+    <div class="transaction" data-id="<%= transaction.id %>">
         <div class="merchant"><%= transaction.merchant %></div>
-        <div class="amount"><%= formatMoney(transaction.amount) %></div>
-        <div class="date"><%= transaction.date.format("dddd, mmmm d, h:MM TT") %></div>
+        <div class="amount"><%= formatMoney(transaction.amount, 0, false) %></div>
+        <div class="date" data-date="<%= transaction.date %>"><%= transaction.date.formatAgo() %></div>
         <div class="card_number"><%= transaction.card_number %></div>
         <div class="budget_name"><%= transaction.budget_name %></div>
+        <div class="budget_select">
+			<% _.each(budgets, function(budget) { %>
+        		<div data-id="<%= budget.id %>"<%= budget.id===transaction.budget_id ? ' class="selected"' : '' %>><%= budget.name %></div>
+			<% }) %>
+		</div>
         <img class="card_image" src="images/<%= transaction.card_image %>" />
     </div>
 <% }) %>

@@ -71,12 +71,15 @@ define([
     	return cardNumber; // "-"+cardNumber.substr(-4);
     }
 
-    window.formatMoney = function (val, decimals) {
+    window.formatMoney = function (val, decimals, includeDollarSign) {
         if (decimals === undefined) {
             decimals = 2;
         }
+        if(includeDollarSign === undefined) {
+        	includeDollarSign = true;
+        }
         var amount = parseFloat(val, 10).toFixed(decimals);
-        return (amount < 0 ? "-" : "") + '$' + Math.abs(parseFloat(val, 10).toFixed(decimals));
+        return (amount < 0 ? "-" : "") + (includeDollarSign ? '<span class="dollarSign">$</span>' : '') + Math.abs(parseFloat(val, 10).toFixed(decimals));
     };
 
     window.touchStart = function (e) {

@@ -57,6 +57,39 @@
     // isoDateTime			yyyy-mm-dd'T'HH:MM:ss			2007-06-09T17:46:21
     // isoUtcDateTime		UTC:yyyy-mm-dd'T'HH:MM:ss'Z'	2007-06-09T22:46:21Z
 
+var timeSince = function (date) {
+    var seconds = Math.floor((new Date() - date) / 1000);
+    var interval;
+
+    interval = Math.floor(seconds / 31536000);
+    if (interval >= 1) {
+        return interval + " year" + (interval===1 ? "" : "s") + " ago";
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval >= 1) {
+        return interval + " month" + (interval===1 ? "" : "s") + " ago";
+    }
+    interval = Math.floor(seconds / 604800);
+    if (interval >= 1) {
+        return interval + " week" + (interval===1 ? "" : "s") + " ago";
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval >= 1) {
+        return interval + " day" + (interval===1 ? "" : "s") + " ago";
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval >= 1) {
+        return interval + " hour" + (interval===1 ? "" : "s") + " ago";
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval >= 1) {
+        return interval + " minute" + (interval===1 ? "" : "s") + " ago";
+    }
+    return "Just a moment ago";
+//    return Math.floor(seconds) + " second" + (interval===1 ? "" : "s") + " ago";
+};
+
+
 var dateFormat = function () {
     var token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
         timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
@@ -167,4 +200,8 @@ dateFormat.i18n = {
     // For convenience...
 Date.prototype.format = function (mask, utc) {
     return dateFormat(this, mask, utc);
+};
+
+Date.prototype.formatAgo = function () {
+	return timeSince(this);
 };
