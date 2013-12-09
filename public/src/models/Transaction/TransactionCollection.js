@@ -11,14 +11,14 @@ define(['underscore', 'backbone', 'models/Transaction/TransactionModel'], functi
 
         initialize:function (data) {
         	var max = 0;
-        	data.forEach(function (e) {
+        	data && data.length && data.forEach(function (e) {
         		if(e.id) {
 	        		max = Math.max(max, parseInt(e.id, 10));
         		}
         	});
         	window.nextTransactionID = max + 1;
 
-        	data.forEach(function (e,i) {
+        	data && data.length && data.forEach(function (e,i) {
         		if(!e.id) {
         			data[i].id = getNextID();
         		}

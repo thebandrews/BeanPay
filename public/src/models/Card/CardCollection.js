@@ -10,12 +10,12 @@ define(['underscore', 'backbone', 'models/Card/CardModel'], function(_, Backbone
         model: CardModel,
         initialize:function (data) {
         	var max = 0;
-        	data.forEach(function (e) {
+        	data && data.length && data.forEach(function (e) {
         		max = Math.max(max, parseInt(e.id, 10));
         	});
         	window.nextCardID = max + 1;
 
-        	data.forEach(function (e,i) {
+        	data && data.length && data.forEach(function (e,i) {
         		if(!e.id) {
         			data[i].id = getNextID();
         		}

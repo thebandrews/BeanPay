@@ -12,13 +12,13 @@ define(['underscore', 'backbone', 'models/Budget/BudgetModel'], function(_, Back
         initialize:function (data) {
         	var max = 0;
 
-        	data.forEach(function (e,i) {
+        	data && data.length && data.forEach(function (e,i) {
         		max = Math.max(max, parseInt(e.id, 10));
         	});
 
         	window.nextBudgetID = max + 1;
 
-        	data.forEach(function (e,i) {
+        	data && data.length && data.forEach(function (e,i) {
         		if(!e.id) {
         			data[i].id = getNextID();
         		}
