@@ -9,8 +9,6 @@
 }
 
 .cards {
-	border-top: 1px solid #000;
-	border-bottom: 1px solid #000;
 	background-color: #efe;
 	/*background-color: rgba(68, 136, 102, 0.9);*/
 
@@ -108,7 +106,7 @@
 			left: 0;
 			top: 0;
 			width: 100%;
-			opacity: 0.3;
+			opacity: 0.35;
 		}
 
 		.processor_image {
@@ -129,11 +127,14 @@
 	.cards {
 		overflow: hidden;
 		height: 0px;
+		border: 0 none;
 	}	
 }
 
 [data-view="home"] {
 	.cards {
+		border-top: 1px solid #000;
+		border-bottom: 1px solid #000;
 		/*background-color: rgba(78, 156, 112, 1);*/
 		height: 71px;
 	}
@@ -141,9 +142,10 @@
 
 [data-view="cards"] {
 	.cards {
+		border: 0 none;
 		-webkit-transition: height 0.5s;
 		overflow-y: scroll;
-		height: 517px;
+		height: 467px;
 	}
 }
 

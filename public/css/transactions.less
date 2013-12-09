@@ -16,33 +16,38 @@
 	}
 }
 
-[data-view="search"], [data-view="transactions"] {
+[data-view="search"], [data-view="transactions"], [data-view="transaction"] {
 	.transactions {
 		overflow-y: scroll;
-		height: 517px;
+		height: 467px;
 	}
 }
 
-.viewing_transaction .transaction {
+[data-view="transaction"] .transaction {
 	height: 0;
 	padding: 0;
+	opacity: 0;
+
+	&.view {
+		height: 100%;
+		opacity: 1;
+	}
 }
 
 .transaction {
 	position: relative;
 	background-color: #efe;
-	color: #000;
+	color: #222;
 	height: 107px;
 	border-bottom: 1px solid #000;
 	padding: 5px;
 	overflow: hidden;
 	font-size: 12px;
 	box-sizing: border-box;
+	opacity: 1;
 	-webkit-transition: all 0.5s;
 
 	&.view {
-		height: 100%;
-
 		.card_image {
 			bottom: 422px;
 		}

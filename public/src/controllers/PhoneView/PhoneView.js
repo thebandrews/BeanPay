@@ -21,7 +21,10 @@ define([
 
         events: {
             'click #menu li': "menuSelect",
-            'mousedown [data-switch-view]': "switchTo"
+            'mousedown [data-switch-view]': "switchTo",
+            'click #topbar .back': "goBack",
+
+            "click .transaction": "transactionSelect"
         },
 
         initialize: function(info) {
@@ -47,6 +50,26 @@ define([
 
         switchTo: function (e) {
             this.$el.attr("data-view",$(e.currentTarget).attr("data-switch-view"));
+            this.cardsView.cardSelected();
+        },
+
+        transactionSelect: function() {
+        	this.$el.attr("data-view","transaction");
+        },
+
+        goBack: function () {
+        	switch(this.$el.attr("data-view")) {
+        		case "transaction":
+        			this.$el.attr("data-view","transactions");
+        			this.transactionsView.endTransactionSelect();
+        			break;
+
+        		case "cards":
+        		case "transactions":
+        		case "budgets":
+        			this.$el.attr("data-view","home");
+        			break;
+        	}
             this.cardsView.cardSelected();
         },
 

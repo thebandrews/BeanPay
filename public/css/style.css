@@ -83,7 +83,7 @@ body {
 }
 [data-view="budgets"] .budgets {
   overflow-y: scroll;
-  height: 517px;
+  height: 467px;
 }
 .budgetGraph {
   float: left;
@@ -145,8 +145,6 @@ body {
   opacity: 0;
 }
 .cards {
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000;
   background-color: #efe;
   /*background-color: rgba(68, 136, 102, 0.9);*/
 
@@ -236,7 +234,7 @@ body {
   left: 0;
   top: 0;
   width: 100%;
-  opacity: 0.3;
+  opacity: 0.35;
 }
 .cards .card .processor_image {
   position: absolute;
@@ -251,16 +249,20 @@ body {
 [data-view] .cards {
   overflow: hidden;
   height: 0px;
+  border: 0 none;
 }
 [data-view="home"] .cards {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
   /*background-color: rgba(78, 156, 112, 1);*/
 
   height: 71px;
 }
 [data-view="cards"] .cards {
+  border: 0 none;
   -webkit-transition: height 0.5s;
   overflow-y: scroll;
-  height: 517px;
+  height: 467px;
 }
 .addingCard #card {
   right: -50%;
@@ -791,6 +793,11 @@ body {
   overflow-y: scroll;
   overflow-x: hidden;
 }
+#phone .content:before {
+  content: "";
+  display: block;
+  height: 50px;
+}
 #phone .overlay {
   display: none;
   pointer-events: none;
@@ -802,11 +809,75 @@ body {
   z-index: 10000;
   background-image: -webkit-linear-gradient(200deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.2) 33%, rgba(0, 0, 0, 0) 33.6%, rgba(0, 0, 0, 0) 100%);
 }
+#phone #topbar {
+  position: fixed;
+  top: 88px;
+  left: 15px;
+  background-color: #1a1a1a;
+  color: #aaa;
+  height: 50px;
+  z-index: 1;
+  display: table;
+  width: calc(100% - 29px);
+  border-spacing: 0px;
+  table-layout: fixed;
+  border-bottom: 1px solid #aaa;
+  cursor: pointer;
+  overflow: hidden;
+  color: rgba(190, 255, 190, 0.8);
+  font-size: 21px;
+  font-weight: bold;
+}
+#phone #topbar:before {
+  content: "";
+  position: absolute;
+  display: block;
+  height: 50px;
+  width: 100%;
+  line-height: 50px;
+  text-align: center;
+  vertical-align: middle;
+}
+#phone #topbar .back {
+  content: "";
+  position: absolute;
+  display: block;
+  background-color: rgba(190, 255, 190, 0.8);
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 50px;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: 50% 50%;
+  -webkit-mask-size: 36px;
+  -webkit-mask-image: url(../images/icons/back.png);
+  -webkit-transition: all 0.5s;
+  opacity: 1;
+}
+#phone[data-view="home"] #topbar:before {
+  content: "BeanPay";
+}
+#phone[data-view="home"] #topbar .back {
+  opacity: 0;
+  width: 0;
+}
+#phone[data-view="budgets"] #topbar:before {
+  content: "Savings";
+}
+#phone[data-view="cards"] #topbar:before {
+  content: "Cards";
+}
+#phone[data-view="transactions"] #topbar:before {
+  content: "Transactions";
+}
+#phone[data-view="transaction"] #topbar:before {
+  content: "View Transaction";
+}
 #phone #menu {
   position: fixed;
   bottom: 108px;
   left: 15px;
-  background-color: #000;
+  background-color: #1a1a1a;
   color: #aaa;
   height: 50px;
   z-index: 1;
@@ -894,28 +965,28 @@ body {
   content: "Search";
 }
 #phone[data-view="home"] #menu [data-view="home"] {
-  color: rgba(0, 200, 70, 0.8);
+  color: rgba(190, 255, 190, 0.8);
 }
 #phone[data-view="home"] #menu [data-view="home"]:before {
-  background-color: rgba(0, 200, 70, 0.8);
+  background-color: rgba(190, 255, 190, 0.8);
 }
 #phone[data-view="budgets"] #menu [data-view="budgets"] {
-  color: rgba(0, 200, 70, 0.8);
+  color: rgba(190, 255, 190, 0.8);
 }
 #phone[data-view="budgets"] #menu [data-view="budgets"]:before {
-  background-color: rgba(0, 200, 70, 0.8);
+  background-color: rgba(190, 255, 190, 0.8);
 }
 #phone[data-view="cards"] #menu [data-view="cards"] {
-  color: rgba(0, 200, 70, 0.8);
+  color: rgba(190, 255, 190, 0.8);
 }
 #phone[data-view="cards"] #menu [data-view="cards"]:before {
-  background-color: rgba(0, 200, 70, 0.8);
+  background-color: rgba(190, 255, 190, 0.8);
 }
 #phone[data-view="transactions"] #menu [data-view="transactions"] {
-  color: rgba(0, 200, 70, 0.8);
+  color: rgba(190, 255, 190, 0.8);
 }
 #phone[data-view="transactions"] #menu [data-view="transactions"]:before {
-  background-color: rgba(0, 200, 70, 0.8);
+  background-color: rgba(190, 255, 190, 0.8);
 }
 .transactions {
   -webkit-transition: height 0.5s;
@@ -929,28 +1000,32 @@ body {
   height: 319px;
 }
 [data-view="search"] .transactions,
-[data-view="transactions"] .transactions {
+[data-view="transactions"] .transactions,
+[data-view="transaction"] .transactions {
   overflow-y: scroll;
-  height: 517px;
+  height: 467px;
 }
-.viewing_transaction .transaction {
+[data-view="transaction"] .transaction {
   height: 0;
   padding: 0;
+  opacity: 0;
+}
+[data-view="transaction"] .transaction.view {
+  height: 100%;
+  opacity: 1;
 }
 .transaction {
   position: relative;
   background-color: #efe;
-  color: #000;
+  color: #222;
   height: 107px;
   border-bottom: 1px solid #000;
   padding: 5px;
   overflow: hidden;
   font-size: 12px;
   box-sizing: border-box;
+  opacity: 1;
   -webkit-transition: all 0.5s;
-}
-.transaction.view {
-  height: 100%;
 }
 .transaction.view .card_image {
   bottom: 422px;

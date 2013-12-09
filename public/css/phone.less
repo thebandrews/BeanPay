@@ -322,6 +322,12 @@
 		background-size: 100%;
 		overflow-y: scroll;
 		overflow-x: hidden; 
+
+		&:before {
+			content: "";
+			display: block;
+			height: 50px;
+		}
 	}
 
 	.overlay {
@@ -337,11 +343,94 @@
 		background-image:	-webkit-linear-gradient(200deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.2) 33%, rgba(0, 0, 0, 0) 33.6%, rgba(0, 0, 0, 0) 100%);
 	}
 
+	#topbar {
+		position: fixed;
+		top: 88px;
+		left: 15px;
+		background-color: #1a1a1a;
+		color: #aaa;
+		height: 50px;
+		z-index: 1;
+		display: table;
+		width: calc(~'100% - 29px');
+		border-spacing: 0px;
+		table-layout: fixed;
+		border-bottom: 1px solid #aaa;
+		cursor: pointer;
+		overflow: hidden;
+		color: rgba(190, 255, 190, 0.8);
+		font-size: 21px;
+		font-weight: bold;
+
+		&:before {
+			content: "";
+			position: absolute;
+			display: block;
+			height: 50px;
+			width: 100%;
+			line-height: 50px;
+			text-align: center;
+			vertical-align: middle;
+		}
+
+		.back {
+			content: "";
+			position: absolute;
+			display: block;
+			background-color: rgba(190, 255, 190, 0.8);
+			top: 0;
+			left: 0;
+			height: 50px;
+			width: 50px;
+			-webkit-mask-repeat: no-repeat;
+			-webkit-mask-position: 50% 50%;
+			-webkit-mask-size: 36px;
+			-webkit-mask-image: url(../images/icons/back.png);
+			-webkit-transition: all 0.5s;
+			opacity: 1;
+		}
+	}
+
+	&[data-view="home"] #topbar {
+		&:before {
+			content: "BeanPay";
+		}
+
+		.back {
+			opacity: 0;
+			width: 0;
+		}
+	}
+
+	&[data-view="budgets"] #topbar {
+		&:before {
+			content: "Savings";
+		}
+	}
+
+	&[data-view="cards"] #topbar {
+		&:before {
+			content: "Cards";
+		}
+	}
+
+	&[data-view="transactions"] #topbar {
+		&:before {
+			content: "Transactions";
+		}
+	}
+
+	&[data-view="transaction"] #topbar {
+		&:before {
+			content: "View Transaction";
+		}
+	}
+
 	#menu {
 		position: fixed;
 		bottom: 108px;
 		left: 15px;
-		background-color: #000;
+		background-color: #1a1a1a;
 		color: #aaa;
 		height: 50px;
 		z-index: 1;
@@ -455,30 +544,30 @@
 	}
 
 	&[data-view="home"] #menu [data-view="home"] {
-		color: rgba(0, 200, 70, 0.8);
+		color: rgba(190, 255, 190, 0.8);
 		&:before {
-			background-color: rgba(0, 200, 70, 0.8);
+			background-color: rgba(190, 255, 190, 0.8);
 		}
 	}
 
 	&[data-view="budgets"] #menu [data-view="budgets"] {
-		color: rgba(0, 200, 70, 0.8);
+		color: rgba(190, 255, 190, 0.8);
 		&:before {
-			background-color: rgba(0, 200, 70, 0.8);
+			background-color: rgba(190, 255, 190, 0.8);
 		}
 	}
 
 	&[data-view="cards"] #menu [data-view="cards"] {
-		color: rgba(0, 200, 70, 0.8);
+		color: rgba(190, 255, 190, 0.8);
 		&:before {
-			background-color: rgba(0, 200, 70, 0.8);
+			background-color: rgba(190, 255, 190, 0.8);
 		}
 	}
 
 	&[data-view="transactions"] #menu [data-view="transactions"] {
-		color: rgba(0, 200, 70, 0.8);
+		color: rgba(190, 255, 190, 0.8);
 		&:before {
-			background-color: rgba(0, 200, 70, 0.8);
+			background-color: rgba(190, 255, 190, 0.8);
 		}
 	}
 

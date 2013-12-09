@@ -37,8 +37,11 @@ define([
         },
 
         transactionSelect: function (e) {
-        	this.$el.addClass("viewing_transaction");
             $(e.currentTarget).addClass("view");
+        },
+
+        endTransactionSelect: function () {
+        	this.$el.find(".view").removeClass("view");
         },
 
         budgetCategorySelect: function (e) {
