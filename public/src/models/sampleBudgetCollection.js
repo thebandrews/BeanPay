@@ -15,14 +15,6 @@ define(function () {
             period: "Monthly",
             startDate: "1",
             amount: "100"
-        },
-        {
-            id: "3",
-            name: "Bars",
-            categories: ["Bars"],
-            period: "Monthly",
-            startDate: "1",
-            amount: "100"
         }
     ];
 });

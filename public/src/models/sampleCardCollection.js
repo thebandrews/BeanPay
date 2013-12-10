@@ -11,15 +11,6 @@ define(function () {
         },
         {
             id: "2",
-            name: "Virgin",
-            type: "MasterCard",
-            image: "blackcard.jpg",
-            number: "5412 3456 7890 1234",
-	        expires: "12/04",
-            CVV: "049"
-        },
-        {
-            id: "3",
             name: "CapitalOne",
             type: "AmericanExpress",
             image: "bluecard.jpg",
