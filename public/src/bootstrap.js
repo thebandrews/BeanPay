@@ -8,6 +8,7 @@ var require = {
         backbone: '../bower_components/backbone-amd/backbone',
         cachedAjax: 'components/cachedAjax',
         CSSpie: 'components/CSSpie',
+        serializeObject: 'components/serializeObject',
         dateFormat: 'components/dateFormat',
         stringToTitleCase: 'components/stringToTitleCase',
         BudgetCollection: 'models/Budget/BudgetCollection',

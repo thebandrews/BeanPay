@@ -24,7 +24,9 @@ define([
             'mousedown [data-switch-view]': "switchTo",
             'click #topbar .back': "goBack",
 
-            "click .transaction": "transactionSelect"
+            "click .transaction": "transactionSelect",
+            "click .budgetGraph": "budgetSelect",
+            "click .create_budget_save": "createBudget"
         },
 
         initialize: function(info) {
@@ -44,17 +46,37 @@ define([
        	},
 
         menuSelect: function (e) {
+	       	if(this.$el.attr("data-view")==="transaction") {
+	       		this.transactionsView.endTransactionSelect();
+	       	}
             this.$el.attr("data-view",$(e.currentTarget).attr("data-view"));
             this.cardsView.cardSelected();
         },
 
         switchTo: function (e) {
-            this.$el.attr("data-view",$(e.currentTarget).attr("data-switch-view"));
-            this.cardsView.cardSelected();
+	       	if(this.$el.attr("data-view")==="home") {
+	            this.$el.attr("data-view",$(e.currentTarget).attr("data-switch-view"));
+	            this.cardsView.cardSelected();        		
+        	}
         },
 
         transactionSelect: function() {
         	this.$el.attr("data-view","transaction");
+        },
+
+        budgetSelect: function(e) {
+        	if($(e.currentTarget).hasClass("addABudget")) {
+	        	this.$el.attr("data-view","add-budget");
+        	}
+        	else {
+	        	this.$el.attr("data-view","budget");
+        	}
+        },
+
+        createBudget: function(e) {
+        	if(this.budgetsView.createBudget()) {
+        		this.$el.attr("data-view","budgets");
+        	}
         },
 
         goBack: function () {
@@ -62,6 +84,17 @@ define([
         		case "transaction":
         			this.$el.attr("data-view","transactions");
         			this.transactionsView.endTransactionSelect();
+        			break;
+
+        		case "budget":
+        		case "add-budget":
+        			this.$el.attr("data-view","budgets");
+        			this.budgetsView.endBudgetSelect();
+        			break;
+
+        		case "add-card":
+        			this.$el.attr("data-view","cards");
+        			this.cardsView.endCardAdd();
         			break;
 
         		case "cards":

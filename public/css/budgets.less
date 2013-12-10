@@ -7,6 +7,10 @@
 	.budgets {
 		overflow: hidden;
 		height: 0px;
+
+		.createABudget {
+			height: 0px;
+		}
 	}	
 }
 
@@ -16,10 +20,35 @@
 	}
 }
 
-[data-view="budgets"] {
+[data-view="budgets"], [data-view="budget"], [data-view="add-budget"] {
 	.budgets {
 		overflow-y: scroll;
 		height: 467px;
+	}
+}
+
+[data-view="budget"] {
+	.budgets .budgetGraph:not(.view) {
+		height: 0px;
+	}
+
+	.budgets .budgetGraph.view {
+		height: 467px;		
+	}
+}
+
+
+[data-view="add-budget"] {
+	.budgets {
+		height: 517px;
+
+		.createABudget {
+			height: 517px;
+		}
+	}
+	.budgetGraph {
+		height: 0px;
+		margin: 0;
 	}
 }
 
@@ -30,6 +59,7 @@
 	width: 106px;
 	margin-top: 13px;
 	position: relative;
+	overflow: hidden;
 }
 
 .budgetTitle {
@@ -47,6 +77,103 @@
 	-webkit-text-stroke-width: 1px;
 	-webkit-text-stroke-color: black;
 */}
+
+.createABudget {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+
+	label, input {
+		margin: 12px 0 12px 12px;
+		display: block;
+		float: left;
+		font-size: 20px;
+	}
+
+	input {
+		margin: 12px 12px 12px 0px;
+		float: right;
+
+		&[type="checkbox"] {
+			margin: 0;
+			height: 0;
+			opacity: 0;
+			overflow: hidden;
+		}
+	}
+
+	.error {
+		box-shadow: inset 0 0 14px rgba(255, 70, 110, 1);
+	}
+
+	.purchase_options {
+		position: absolute;
+		bottom: 60px;
+		width: 100%;
+		height: 361px;
+		overflow-y: scroll;
+		border-top: 1px solid #eef;
+
+		.purchase_option {
+			display: block;
+			width: 100%;
+			height: 50px;
+			line-height: 50px;
+			vertical-align: middle;
+			padding: 0 20px;
+			box-sizing: border-box;
+			border-top: 1px solid #eef;
+			position: relative;
+
+			&:first-child {
+				border-top: 0 none;
+			}
+
+			&.selected {
+				&:after {
+					content: "";
+					position: absolute;
+					top: 50%;
+					right: 0;
+					height: 50px;
+					margin-top: -25px;
+					width: 50px;
+					background-color: #393;
+					-webkit-mask-image: url(../images/icons/check2.png);
+					-webkit-mask-repeat: no-repeat;
+					-webkit-mask-position: center;
+					-webkit-mask-size: 50px;
+					border-radius: 50px;
+					z-index: 2;
+				}
+
+				&:before {
+					content: "";
+					position: absolute;
+					top: 50%;
+					right: 10px;
+					height: 30px;
+					margin-top: -15px;
+					width: 30px;
+					background-color: #222;
+					border-radius: 50px;
+					z-index: 1;
+				}
+
+				/*background-color: rgba(78, 156, 112, 1);*/
+			}
+		}
+	}
+
+	.create_budget_save {
+		float: none;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		height: 60px;
+		margin: 0;
+	}
+}
 
 .addPlus {
 	position: absolute;

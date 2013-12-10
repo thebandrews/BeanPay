@@ -42,29 +42,38 @@ define([
 
         endTransactionSelect: function () {
         	this.$el.find(".view").removeClass("view");
+            this.render();
         },
 
         budgetCategorySelect: function (e) {
         	var $e = $(e.currentTarget);
         	var $v = $e.closest(".view");
-        	$v.find(".selected").removeClass("selected");
-        	$e.addClass("selected");
-        	this.transactionCollection.get($v.attr('data-id')).set('budget_id',$e.attr('data-id'));
+        	$e.toggleClass("selected");
+            var transaction = this.transactionCollection.get($v.attr('data-id'));
+        	var budgets = transaction.get('budget_ids');
+            var index = budgets.indexOf($e.attr('data-id'));
+            if(index!==-1) {
+                budgets.splice(index, 1);
+            }
+            else {
+                budgets.push($e.attr('data-id'));
+            }
+            transaction.set('budget_ids', budgets);
         },
 
         render: function () {
             var transactions = [], budgets = [];
 
             this.transactionCollection.each(_.bind(function (transaction) {
-                var budget_id = transaction.get('budget_id');
+                var budget_ids = transaction.get('budget_ids');
                 var card_id = transaction.get('card_id');
                 transactions.push({
                 	id: 			transaction.get('id'), 
                     merchant: 		transaction.get('merchant'),
                     date: 			new Date(transaction.get('date')),
                     amount: 		parseFloat(transaction.get('amount'), 10),
-                    budget_id: 		transaction.get('budget_id'), 
-                    budget_name: 	this.budgetCollection.get(budget_id) ? this.budgetCollection.get(budget_id).get('name') : "",
+                    budget_ids: 	budget_ids, 
+                    budget_names: 	(budget_ids && budget_ids.length) ? budget_ids.map(_.bind(function (e) { return this.budgetCollection.get(e).get('name'); },this)) : [],
                     card_image: 	this.cardCollection.get(card_id).get('image'),
                     card_number: 	this.cardCollection.get(card_id).get('number')
                 });

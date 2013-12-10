@@ -3,7 +3,7 @@ define(function () {
         {
             id: "1",
             name: "Coffee",
-            category: "Coffee",
+            categories: ["Coffee"],
             period: "Monthly",
             startDate: "1",
             amount: "30"
@@ -11,7 +11,7 @@ define(function () {
         {
             id: "2",
             name: "Restaurants",
-            category: "Restaurants",
+            categories: ["Restaurants"],
             period: "Monthly",
             startDate: "1",
             amount: "100"
@@ -19,7 +19,7 @@ define(function () {
         {
             id: "3",
             name: "Bars",
-            category: "Bars",
+            categories: ["Bars"],
             period: "Monthly",
             startDate: "1",
             amount: "100"

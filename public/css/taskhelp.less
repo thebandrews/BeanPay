@@ -54,29 +54,30 @@
 			&.selected {
 				-webkit-transform: scale(0.75);
 				bottom: -540%;
-				left: 50% !important;
+				right: 12% !important;
 				z-index: 1;
 			}
 
 			&[data-card-id="generic"] {
-				left: 0%;
+				display: none;
+				right: 0%;
 				background-color: #555;
 			}
 
 			&[data-card-id="red"] {
-				left: 12%;
+				right: 8%;
 				background-color: #f00;
 				background-image: url(../images/RED.png);
 			}
 
 			&[data-card-id="blue"] {
-				left: 24%;
+				right: 20%;
 				background-image: url(../images/BLUE.png);
 				background-size: 100%;
 			}
 
 			&[data-card-id="black"] {
-				left: 36%;
+				right: 32%;
 				background-image: url(../images/BLACK.png);
 				background-color: #000;
 			}
@@ -93,7 +94,7 @@
 
 		.purchase {
 			position: absolute;
-			bottom: 0;
+			bottom: 20%;
 			border-radius: 270px;
 			height: 270px;
 			width: 270px;
@@ -109,27 +110,27 @@
 			&:hover {
 				-webkit-transition: all 0.2s;
 				-webkit-transform: rotate(90deg) scale(0.85);
-				bottom: -100%;
+				bottom: -50%;
 			}
 
 
-			&[data-merchant="upchuck_coffee"] {
+			&[data-category="Coffee"] {
 				right: 25%;
 				background-image: url(../images/COFFEE.png);
 			}
 
-			&[data-merchant="bobs_burgers"] {
+			&[data-category="Restaurants"] {
 				right: 50%;
 				background-image: url(../images/BURGERB.png);
 			}
 
-			&[data-merchant="joes_tavern"] {
+			&[data-category="Bars"] {
 				right: 75%;
 				background-image: url(../images/BEER.png);
 				border-radius: 270px;
 			}
 
-			&[data-merchant="generic"] {
+			&[data-category="generic"] {
 				bottom: -50%;
 				border-radius: 0;
 				height: 630px;

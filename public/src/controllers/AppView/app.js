@@ -3,6 +3,7 @@ define([
     'backbone',
     'jquery',
     'stringToTitleCase',
+    'serializeObject',
     'text!controllers/AppView/app.html',
     'text!controllers/AppView/touchview.html',
     'text!controllers/AppView/taskhelp.html',
@@ -21,7 +22,7 @@ define([
     'models/sampleBudgetCollection',
     'models/sampleCardCollection',
     'models/sampleTransactionCollection'
-], function (_, Backbone, $, stringToTitleCase, tmpl, touch_tmpl, taskhelp_tmpl, datahelp_tmpl, PhoneView, MagicCardView, BudgetsView, BudgetView, CardsView, SearchView, TransactionsView, TransactionView, BudgetCollection, CardCollection, TransactionCollection, budgets, cards, transactions) {
+], function (_, Backbone, $, stringToTitleCase, serializeObject, tmpl, touch_tmpl, taskhelp_tmpl, datahelp_tmpl, PhoneView, MagicCardView, BudgetsView, BudgetView, CardsView, SearchView, TransactionsView, TransactionView, BudgetCollection, CardCollection, TransactionCollection, budgets, cards, transactions) {
 
 	if(!localStorage.getItem('storedData')) {
 		localStorage.setItem('storedData',"{}");
@@ -31,7 +32,87 @@ define([
     var cardCollection = new CardCollection(JSON.parse(localStorage.getItem('cards')) || cards);
     var transactionCollection = new TransactionCollection(JSON.parse(localStorage.getItem('transactions')) || transactions);
 
-    var wallet_cards = {
+    window.getRandomArrayElement = function (arr) {
+    	if(arr.length) {
+    		return arr[Math.floor(arr.length*Math.random())];
+    	}
+    };
+
+    window.getBudgetCategoryByName = function (name) {
+        var cats = window.budget_categories;
+        for(var i=0,len=cats.length;i<len;i++) {
+            if(cats[i].name === name) {
+                return cats[i];
+            }
+        }
+        return undefined;
+    };
+
+    window.getRandomMerchant = function (category) {
+    	if(!category) {
+    		category = getRandomArrayElement(window.budget_categories);
+    	}
+    	return getRandomArrayElement(window.names) + " " + getRandomArrayElement(category.generic);
+    };
+
+    window.BreakException = {};
+
+    window.names = ["Bens", "Bobs", "Bills", "Jills", "Junes", "Jans"];
+
+    window.budget_categories = [
+		{
+			name: 			"Restaurants",
+			generic: 		["Restaurant", "Diner", "Burgers"], 
+			merchants: 		["McDonalds"]
+		},
+		{
+			name: 			"Coffee",
+			generic: 		["Coffee", "Cafe", "Latte"], 
+			merchants: 		["Starbucks"]
+		},
+		{
+			name: 			"Bars",
+			generic: 		["Bar", "Tavern"], 
+			merchants: 		[]
+		},
+		{
+			name: 			"Grocery Stores",
+			generic: 		["Grocery"], 
+			merchants: 		["Safeway", "QFC", "Met Market", "Whole Foods"]
+		},
+		{
+			name: 			"Department Stores",
+			generic: 		["Big Shop"], 
+			merchants: 		["Nordstrom", "Macys", "Target"]
+		},
+		{
+			name: 			"Theaters",
+			generic: 		["Cinema", "Theater"], 
+			merchants: 		["Galaxy", "Regal"]
+		},
+		{
+			name: 			"Gas Stations",
+			generic: 		["Gas"], 
+			merchants: 		["Shell", "76", "Texaco", "Arco", "Chevron"]
+		},
+		{
+			name: 			"Convenience Stores",
+			generic: 		["Corner Store"], 
+			merchants: 		["ampm", "7-11"]
+		},
+		{
+			name: 			"Dry Cleaners",
+			generic: 		["Cleaners", "Laundry"],
+			merchants: 		[]
+		},
+		{
+			name: 			"Online Retailers",
+			generic: 		[".com"], 
+			merchants: 		["Amazon"]
+		}
+	].sort(function (a,b){ return a.name > b.name;}).map(function (e,i) { return _.extend({id:i}, e);});
+
+    window.wallet_cards = {
 	    red: {
 	        name: "CapitalOne",
 	        type: "VISA",
@@ -102,7 +183,7 @@ define([
                 top: e.clientY + "px",
                 left: e.clientX + "px"
             });
-            $body.append($ot);
+            $body.prepend($ot);
             $ot.addClass('hot').css('opacity');
             $ot.removeClass('hot').css('-webkit-transition');
         }
@@ -140,9 +221,15 @@ define([
             this.phoneView.on('cardChosen', _.bind(this.setCard, this));
             this.magicView.on('cardChosen', _.bind(this.setCard, this));
 
-            budgetCollection.on('add change remove', function () { localStorage.setItem('budgets', JSON.stringify(budgetCollection)); });
-            cardCollection.on('add change remove', function () { localStorage.setItem('cards', JSON.stringify(cardCollection)); });
-            transactionCollection.on('add change remove', function () { localStorage.setItem('transactions', JSON.stringify(transactionCollection)); });
+            budgetCollection.on('add change remove', function () {
+                localStorage.setItem('budgets', JSON.stringify(budgetCollection));
+            });
+            cardCollection.on('add change remove', function () {
+                localStorage.setItem('cards', JSON.stringify(cardCollection));
+            });
+            transactionCollection.on('add change remove', function () {
+                localStorage.setItem('transactions', JSON.stringify(transactionCollection));
+            });
         },
 
         resetPrototype: function (budgets, cards, transactions) {
@@ -163,21 +250,25 @@ define([
         },
 
         doPurchase: function(e) {
-        	var type = $(e.currentTarget).attr('data-merchant');
         	var amount = parseInt($(e.currentTarget).attr('data-amount'),10);
         	var category = $(e.currentTarget).attr('data-category');
-        	if(type==="generic") {
-        		// TODO: make a form for generic purchases
-        	}
-        	else {
-	        	transactionCollection.add({
-					date: new Date(),
-					merchant: type.replace("_"," ").toTitleCase(),
-					amount: Math.floor(Math.random()*100*amount)/100,
-					card_id: cardCollection.getElement().get('id'),
-					budget_id: budgetCollection.findWhere({category: category}).get('id')
-				});        		
-        	}
+        	if(category==="generic") {
+        		category = getRandomArrayElement(window.budget_categories);
+            }
+            else {
+                category = getBudgetCategoryByName(category);
+            }
+
+    		merchant = getRandomMerchant(category);
+    		category = category.name;
+
+    		transactionCollection.add({
+				date: new Date(),
+				merchant: merchant.toTitleCase(),
+				amount: Math.floor(Math.random()*100*amount)/100,
+				card_id: cardCollection.getElement().get('id'),
+				budget_ids: budgetCollection.getBudgetsMatchingMerchantName(merchant).map(function (e) { return e.get('id'); })
+			});
         },
 
         addBudget: function(e) {
@@ -252,10 +343,23 @@ define([
 									$dir.replaceWith('<div class="directions threeSeconds">Processing...</div>');
 									$e.removeClass('selected').addClass('sideways');
 									setTimeout(_.bind(function () {
-										cardCollection.add(card);
+										var addedCard = cardCollection.add(card);
 										cardCollection.getElement();
 										$("#secretSelected").remove();
 										this.$el.off('mousemove', moveCardView);
+
+										// Add some random transactions
+										for(var i=0,len=10;i<len;i++) {
+											var merchant = getRandomMerchant();
+											transactionCollection.add({
+									            date: randomDate(),
+									            merchant: merchant,
+									            amount: 25*Math.random(),
+									            card_id: addedCard.get('id'),
+									            budget_ids: budgetCollection.getBudgetsMatchingMerchantName(merchant).map(function(e){return e.get('id');})
+									        });
+										}
+
 										this.cardAdded();
 										$("#phone").css({top:"",left:""});
 									}, this), 3000)

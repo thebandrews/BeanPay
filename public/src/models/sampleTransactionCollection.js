@@ -6,7 +6,7 @@ define(function () {
             merchant: "Starbucks",
             amount: "2.19",
             card_id: "1",
-            budget_id: "1"
+            budget_ids: ["1"]
         },
         {
         	id: "2",
@@ -14,7 +14,7 @@ define(function () {
             merchant: "Bobs Burgers",
             amount: "13.97",
             card_id: "1",
-            budget_id: "2"
+            budget_ids: ["2"]
         },
         {
         	id: "3",
@@ -22,7 +22,7 @@ define(function () {
             merchant: "Joes Tavern",
             amount: "27.70",
             card_id: "1",
-            budget_id: "3"
+            budget_ids: ["3"]
         }
     ];
 });

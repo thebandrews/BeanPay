@@ -197,7 +197,7 @@ dateFormat.i18n = {
     ]
 };
 
-    // For convenience...
+// For convenience...
 Date.prototype.format = function (mask, utc) {
     return dateFormat(this, mask, utc);
 };
@@ -205,3 +205,17 @@ Date.prototype.format = function (mask, utc) {
 Date.prototype.formatAgo = function () {
 	return timeSince(this);
 };
+
+function randomDate(start, end) {
+	if(!end) {
+		end = new Date();
+	}
+
+	if(!start) {
+		start = new Date();
+		start = new Date(start.getFullYear(), (start.getMonth() + 10) % 12, start.getDate());
+	}
+
+    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+}
+

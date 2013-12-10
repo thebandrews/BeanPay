@@ -10,18 +10,21 @@
 }
 
 .addingCard {
+	overflow: hidden;
+	
 	#phone {
 		-webkit-transform: scale(1);
 		box-shadow: rgba(0, 0, 0, 0.25) 190px 366px 58px;
 
 		.content {
+			overflow-y: hidden;
 			background-color: #fff;
 
 			.phoneAddingCard {
 				position: absolute;
-				top: 0;
+				top: 50px;
 				width: 100%;
-				height: 100%;
+				height: calc(~'100% - 50px');
 				right: 0;
 				left: 0;
 				bottom: 0;
@@ -40,8 +43,8 @@
 				.directions {
 					border-bottom: 2px solid #333;
 					top: 0;
-					height: 280px;
-					padding: 80px 30px 0;
+					height: 230px;
+					padding: 43px 30px 0;
 					box-sizing: border-box;
 
 					&.startTimer {
@@ -355,7 +358,7 @@
 		width: calc(~'100% - 29px');
 		border-spacing: 0px;
 		table-layout: fixed;
-		border-bottom: 1px solid #aaa;
+		/*border-bottom: 1px solid #aaa;*/
 		cursor: pointer;
 		overflow: hidden;
 		color: rgba(190, 255, 190, 0.8);
@@ -405,6 +408,18 @@
 	&[data-view="budgets"] #topbar {
 		&:before {
 			content: "Savings";
+		}
+	}
+
+	&[data-view="budget"] #topbar {
+		&:before {
+			content: "View Category";
+		}
+	}
+
+	&[data-view="add-budget"] #topbar {
+		&:before {
+			content: "Add Category";
 		}
 	}
 
@@ -507,6 +522,7 @@
 			&[data-view="cards"] {
 				&:before {
 					-webkit-mask-image: url(../images/icons/cards.png);
+					-webkit-mask-size: 27px;
 				}
 				&:after {
 					content: "Cards";
@@ -550,7 +566,14 @@
 		}
 	}
 
-	&[data-view="budgets"] #menu [data-view="budgets"] {
+	&[data-view="add-budget"] {
+		#menu {
+			height: 0;
+			border: 0 none;
+		}
+	}
+
+	&[data-view="budgets"] #menu [data-view="budgets"], &[data-view="budget"] #menu [data-view="budgets"] {
 		color: rgba(190, 255, 190, 0.8);
 		&:before {
 			background-color: rgba(190, 255, 190, 0.8);
@@ -564,7 +587,7 @@
 		}
 	}
 
-	&[data-view="transactions"] #menu [data-view="transactions"] {
+	&[data-view="transactions"] #menu [data-view="transactions"], &[data-view="transaction"] #menu [data-view="transactions"] {
 		color: rgba(190, 255, 190, 0.8);
 		&:before {
 			background-color: rgba(190, 255, 190, 0.8);

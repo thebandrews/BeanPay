@@ -29,7 +29,7 @@ define(['underscore', 'backbone', 'models/Transaction/TransactionModel'], functi
         	if(!obj.id) {
         		obj.id = getNextID();
         	}
-        	Backbone.Collection.prototype.add.call(this, obj);
+        	return Backbone.Collection.prototype.add.call(this, obj);
         }
     });
     return Collection;

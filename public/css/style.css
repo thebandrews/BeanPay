@@ -16,6 +16,12 @@ body {
 }
 ::-webkit-scrollbar {
   width: 0;
+  height: 0;
+}
+div,
+img {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
 }
 #app {
   width: 100%;
@@ -83,12 +89,33 @@ body {
   overflow: hidden;
   height: 0px;
 }
+[data-view] .budgets .createABudget {
+  height: 0px;
+}
 [data-view="home"] .budgets {
   height: 125px;
 }
-[data-view="budgets"] .budgets {
+[data-view="budgets"] .budgets,
+[data-view="budget"] .budgets,
+[data-view="add-budget"] .budgets {
   overflow-y: scroll;
   height: 467px;
+}
+[data-view="budget"] .budgets .budgetGraph:not(.view) {
+  height: 0px;
+}
+[data-view="budget"] .budgets .budgetGraph.view {
+  height: 467px;
+}
+[data-view="add-budget"] .budgets {
+  height: 517px;
+}
+[data-view="add-budget"] .budgets .createABudget {
+  height: 517px;
+}
+[data-view="add-budget"] .budgetGraph {
+  height: 0px;
+  margin: 0;
 }
 .budgetGraph {
   float: left;
@@ -96,6 +123,7 @@ body {
   width: 106px;
   margin-top: 13px;
   position: relative;
+  overflow: hidden;
 }
 .budgetTitle {
   margin-top: 3px;
@@ -111,6 +139,93 @@ body {
 	-webkit-text-stroke-width: 1px;
 	-webkit-text-stroke-color: black;
 */
+}
+.createABudget {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+.createABudget label,
+.createABudget input {
+  margin: 12px 0 12px 12px;
+  display: block;
+  float: left;
+  font-size: 20px;
+}
+.createABudget input {
+  margin: 12px 12px 12px 0px;
+  float: right;
+}
+.createABudget input[type="checkbox"] {
+  margin: 0;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+.createABudget .error {
+  box-shadow: inset 0 0 14px #ff466e;
+}
+.createABudget .purchase_options {
+  position: absolute;
+  bottom: 60px;
+  width: 100%;
+  height: 361px;
+  overflow-y: scroll;
+  border-top: 1px solid #eef;
+}
+.createABudget .purchase_options .purchase_option {
+  display: block;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  vertical-align: middle;
+  padding: 0 20px;
+  box-sizing: border-box;
+  border-top: 1px solid #eef;
+  position: relative;
+}
+.createABudget .purchase_options .purchase_option:first-child {
+  border-top: 0 none;
+}
+.createABudget .purchase_options .purchase_option.selected {
+  /*background-color: rgba(78, 156, 112, 1);*/
+
+}
+.createABudget .purchase_options .purchase_option.selected:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  height: 50px;
+  margin-top: -25px;
+  width: 50px;
+  background-color: #393;
+  -webkit-mask-image: url(../images/icons/check2.png);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: 50px;
+  border-radius: 50px;
+  z-index: 2;
+}
+.createABudget .purchase_options .purchase_option.selected:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  height: 30px;
+  margin-top: -15px;
+  width: 30px;
+  background-color: #222;
+  border-radius: 50px;
+  z-index: 1;
+}
+.createABudget .create_budget_save {
+  float: none;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  margin: 0;
 }
 .addPlus {
   position: absolute;
@@ -206,9 +321,10 @@ body {
 }
 .cards .card.addACard {
   background-color: #eee;
+  height: 71px;
 }
 .cards .card.addACard .name {
-  top: 32px;
+  top: 18px;
   left: 100px;
   color: #000;
 }
@@ -342,14 +458,17 @@ body {
   position: absolute;
   top: 40px;
   left: 40px;
+  right: 40px;
   content: "Welcome to BeanPay!";
-  font-size: 40px;
+  font-size: 37px;
 }
 #card .card_front .card_content .noCards:after {
   position: absolute;
-  bottom: 40px;
+  bottom: 50px;
   left: 40px;
-  content: "To begin, open the BeanPay app and choose \"Add Card\".";
+  right: 40px;
+  font-size: 23px;
+  content: "To begin, open the BeanPay app and choose \"Add Card\"";
 }
 #card .card_front .card_content:before {
   content: "";
@@ -585,18 +704,22 @@ body {
     width: 284px;
   }
 }
+.addingCard {
+  overflow: hidden;
+}
 .addingCard #phone {
   -webkit-transform: scale(1);
   box-shadow: rgba(0, 0, 0, 0.25) 190px 366px 58px;
 }
 .addingCard #phone .content {
+  overflow-y: hidden;
   background-color: #fff;
 }
 .addingCard #phone .content .phoneAddingCard {
   position: absolute;
-  top: 0;
+  top: 50px;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 50px);
   right: 0;
   left: 0;
   bottom: 0;
@@ -615,8 +738,8 @@ body {
 .addingCard #phone .content .phoneAddingCard .directions {
   border-bottom: 2px solid #333;
   top: 0;
-  height: 280px;
-  padding: 80px 30px 0;
+  height: 230px;
+  padding: 43px 30px 0;
   box-sizing: border-box;
 }
 .addingCard #phone .content .phoneAddingCard .directions.startTimer:before,
@@ -826,7 +949,8 @@ body {
   width: calc(100% - 29px);
   border-spacing: 0px;
   table-layout: fixed;
-  border-bottom: 1px solid #aaa;
+  /*border-bottom: 1px solid #aaa;*/
+
   cursor: pointer;
   overflow: hidden;
   color: rgba(190, 255, 190, 0.8);
@@ -868,6 +992,12 @@ body {
 }
 #phone[data-view="budgets"] #topbar:before {
   content: "Savings";
+}
+#phone[data-view="budget"] #topbar:before {
+  content: "View Category";
+}
+#phone[data-view="add-budget"] #topbar:before {
+  content: "Add Category";
 }
 #phone[data-view="cards"] #topbar:before {
   content: "Cards";
@@ -946,6 +1076,7 @@ body {
 }
 #phone #menu li[data-view="cards"]:before {
   -webkit-mask-image: url(../images/icons/cards.png);
+  -webkit-mask-size: 27px;
 }
 #phone #menu li[data-view="cards"]:after {
   content: "Cards";
@@ -975,10 +1106,16 @@ body {
 #phone[data-view="home"] #menu [data-view="home"]:before {
   background-color: rgba(190, 255, 190, 0.8);
 }
-#phone[data-view="budgets"] #menu [data-view="budgets"] {
+#phone[data-view="add-budget"] #menu {
+  height: 0;
+  border: 0 none;
+}
+#phone[data-view="budgets"] #menu [data-view="budgets"],
+#phone[data-view="budget"] #menu [data-view="budgets"] {
   color: rgba(190, 255, 190, 0.8);
 }
-#phone[data-view="budgets"] #menu [data-view="budgets"]:before {
+#phone[data-view="budgets"] #menu [data-view="budgets"]:before,
+#phone[data-view="budget"] #menu [data-view="budgets"]:before {
   background-color: rgba(190, 255, 190, 0.8);
 }
 #phone[data-view="cards"] #menu [data-view="cards"] {
@@ -987,10 +1124,12 @@ body {
 #phone[data-view="cards"] #menu [data-view="cards"]:before {
   background-color: rgba(190, 255, 190, 0.8);
 }
-#phone[data-view="transactions"] #menu [data-view="transactions"] {
+#phone[data-view="transactions"] #menu [data-view="transactions"],
+#phone[data-view="transaction"] #menu [data-view="transactions"] {
   color: rgba(190, 255, 190, 0.8);
 }
-#phone[data-view="transactions"] #menu [data-view="transactions"]:before {
+#phone[data-view="transactions"] #menu [data-view="transactions"]:before,
+#phone[data-view="transaction"] #menu [data-view="transactions"]:before {
   background-color: rgba(190, 255, 190, 0.8);
 }
 .transactions {
@@ -1030,17 +1169,18 @@ body {
   font-size: 12px;
   box-sizing: border-box;
   opacity: 1;
-  -webkit-transition: all 0.5s;
+  /*	-webkit-transition: all 0.5s; */
+
 }
 .transaction.view .card_image {
-  bottom: 422px;
+  bottom: 389px;
 }
 .transaction.view .date {
-  bottom: 422px;
+  bottom: 389px;
 }
 .transaction.view .budget_select {
   display: block;
-  top: 100px;
+  top: 84px;
   font-size: 27px;
   width: 100%;
   border-top: 1px solid #000;
@@ -1083,9 +1223,6 @@ body {
   border-radius: 50px;
   z-index: 1;
 }
-.transaction.view .budget_select .selected .image {
-  opacity: 1;
-}
 .transaction.view .budget_name {
   display: none;
 }
@@ -1108,6 +1245,10 @@ body {
   top: 5px;
   left: 9px;
   font-size: 25px;
+  text-overflow: ellipsis;
+  width: 214px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .transaction .amount {
   top: 12px;
@@ -1193,25 +1334,26 @@ body {
 #task_help .credit_cards .credit_card.selected {
   -webkit-transform: scale(0.75);
   bottom: -540%;
-  left: 50% !important;
+  right: 12% !important;
   z-index: 1;
 }
 #task_help .credit_cards .credit_card[data-card-id="generic"] {
-  left: 0%;
+  display: none;
+  right: 0%;
   background-color: #555;
 }
 #task_help .credit_cards .credit_card[data-card-id="red"] {
-  left: 12%;
+  right: 8%;
   background-color: #f00;
   background-image: url(../images/RED.png);
 }
 #task_help .credit_cards .credit_card[data-card-id="blue"] {
-  left: 24%;
+  right: 20%;
   background-image: url(../images/BLUE.png);
   background-size: 100%;
 }
 #task_help .credit_cards .credit_card[data-card-id="black"] {
-  left: 36%;
+  right: 32%;
   background-image: url(../images/BLACK.png);
   background-color: #000;
 }
@@ -1224,7 +1366,7 @@ body {
 }
 #task_help .purchases .purchase {
   position: absolute;
-  bottom: 0;
+  bottom: 20%;
   border-radius: 270px;
   height: 270px;
   width: 270px;
@@ -1240,22 +1382,22 @@ body {
 #task_help .purchases .purchase:hover {
   -webkit-transition: all 0.2s;
   -webkit-transform: rotate(90deg) scale(0.85);
-  bottom: -100%;
+  bottom: -50%;
 }
-#task_help .purchases .purchase[data-merchant="upchuck_coffee"] {
+#task_help .purchases .purchase[data-category="Coffee"] {
   right: 25%;
   background-image: url(../images/COFFEE.png);
 }
-#task_help .purchases .purchase[data-merchant="bobs_burgers"] {
+#task_help .purchases .purchase[data-category="Restaurants"] {
   right: 50%;
   background-image: url(../images/BURGERB.png);
 }
-#task_help .purchases .purchase[data-merchant="joes_tavern"] {
+#task_help .purchases .purchase[data-category="Bars"] {
   right: 75%;
   background-image: url(../images/BEER.png);
   border-radius: 270px;
 }
-#task_help .purchases .purchase[data-merchant="generic"] {
+#task_help .purchases .purchase[data-category="generic"] {
   bottom: -50%;
   border-radius: 0;
   height: 630px;
@@ -1264,7 +1406,7 @@ body {
   background-color: #555;
   box-shadow: rgba(0, 0, 0, 0.3) 3px 6px 5px;
 }
-#task_help .purchases .purchase[data-merchant="generic"]:hover {
+#task_help .purchases .purchase[data-category="generic"]:hover {
   -webkit-transform: scale(0.85);
   bottom: -100%;
 }

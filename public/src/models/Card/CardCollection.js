@@ -57,7 +57,7 @@ define(['underscore', 'backbone', 'models/Card/CardModel'], function(_, Backbone
         	if(!obj.id) {
         		obj.id = getNextID();
         	}
-        	Backbone.Collection.prototype.add.call(this, obj);
+        	return Backbone.Collection.prototype.add.call(this, obj);
         }
     });
     return Collection;

@@ -9,7 +9,7 @@ define(['underscore', 'backbone', 'models/Budget/BudgetModel'], function(_, Back
     var Collection = Backbone.Collection.extend({
         model: BudgetModel,
 
-        initialize:function (data) {
+        initialize: function (data) {
         	var max = 0;
 
         	data && data.length && data.forEach(function (e,i) {
@@ -25,11 +25,33 @@ define(['underscore', 'backbone', 'models/Budget/BudgetModel'], function(_, Back
         	});
         },
 
+        getBudgetsMatchingMerchantName: function (merchant) {
+        	var models = [];
+        	this.models.forEach(function (model) {
+        		var categories = model.get("categories");
+                try {
+                    categories.forEach(function (category) {
+                        var names = getBudgetCategoryByName(category).generic;
+                        for(var i=0,len=names.length;i<len;i++) {
+                            if(merchant.match(new RegExp(names[i]))) {
+                                models.push(model);
+                                throw BreakException;
+                            }                            
+                        }
+                    });
+                }
+                catch(ex) {
+                    if (ex!==BreakException) throw ex;
+                }
+        	});
+        	return models;
+        },
+
         add: function(obj) {
         	if(!obj.id) {
         		obj.id = getNextID();
         	}
-        	Backbone.Collection.prototype.add.call(this, obj);
+        	return Backbone.Collection.prototype.add.call(this, obj);
         }
     });
     return Collection;
