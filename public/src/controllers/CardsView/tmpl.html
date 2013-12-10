@@ -3,7 +3,7 @@
 		<div class="name"><%= card.name %></div>
         <div class="number"><%= formatCardNumber(card.number) %></div>
         <div class="expires"><%= card.expires %></div>
-        <img class="image" src="images/<%= card.image %>" />
-        <img class="processor_image" src="images/icons/<%= card.type.toLowerCase() %>.png" />
+        <img class="image" src="images/<%= card.image %>" alt="none" />
+        <img class="processor_image" src="images/icons/<%= card.type.toLowerCase() %>.png" alt="none" />
 	</div>
 <% }) %>

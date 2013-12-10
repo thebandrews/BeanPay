@@ -229,8 +229,8 @@ img {
 }
 .addPlus {
   position: absolute;
-  top: -43px;
-  right: 3px;
+  top: -30px;
+  right: 18px;
   z-index: 10;
   font-size: 120px;
   line-height: 120px;

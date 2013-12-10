@@ -10,6 +10,6 @@
         		<div data-id="<%= budget.id %>"<%= (transaction.budget_ids && transaction.budget_ids.indexOf(budget.id)!==-1) ? ' class="selected"' : '' %>><%= budget.name %></div>
 			<% }) %>
 		</div>
-        <img class="card_image" src="images/<%= transaction.card_image %>" />
+        <img class="card_image" src="images/<%= transaction.card_image %>" alt="nope" />
     </div>
 <% }) %>
