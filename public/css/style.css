@@ -704,7 +704,8 @@ img {
     width: 284px;
   }
 }
-.addingCard {
+.addingCard #data_help {
+  height: 0;
   overflow: hidden;
 }
 .addingCard #phone {
